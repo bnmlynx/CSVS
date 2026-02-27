@@ -10,42 +10,113 @@
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.6;
-    color: #1a1a2e;
-    background: #f0f2f5;
+    color: #2b3a67;
+    background: #d5dae6;
   }
 
   header {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: linear-gradient(135deg, #2b3a67 0%, #3a4d80 50%, #4a5b92 100%);
     color: #fff;
-    padding: 3rem 1.5rem;
+    padding: 2rem 1.5rem 1rem;
     text-align: center;
   }
-  header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-  header p { color: #b8c6db; max-width: 650px; margin: 0 auto; }
+  header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  header p { color: #c8d0e0; max-width: 650px; margin: 0 auto 1rem; font-size: 0.95rem; }
 
-  main { max-width: 800px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+  /* ---- Progress bar ---- */
+  .progress-bar {
+    display: flex;
+    gap: 4px;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 1rem 1.5rem;
+  }
+  .progress-step {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.15);
+    cursor: pointer;
+    transition: background 0.3s;
+    position: relative;
+  }
+  .progress-step.active { background: #fff; }
+  .progress-step.completed { background: #2ecc71; }
+  .progress-step:hover { background: rgba(255,255,255,0.5); }
+  .progress-step.active:hover { background: #fff; }
+  .progress-step.completed:hover { background: #27ae60; }
 
-  /* ---- Navigation ---- */
+  /* ---- Step labels (tooltip) ---- */
+  .progress-step::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2b3a67;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .progress-step:hover::after { opacity: 1; }
+
+  main { max-width: 800px; margin: 0 auto; padding: 1.5rem 1rem 2rem; }
+
+  /* ---- Page sections ---- */
+  .page { display: none; }
+  .page.active { display: block; animation: fadeIn 0.3s ease; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- Page indicator ---- */
+  .page-indicator {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 1rem;
+  }
+
+  /* ---- Navigation buttons ---- */
+  .page-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+  .page-nav .btn { min-width: 140px; text-align: center; }
+  .page-nav .spacer { flex: 1; }
+
+  /* ---- Module nav (now clickable tabs) ---- */
   .module-nav {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     justify-content: center;
   }
-  .module-nav a {
-    display: inline-block;
+  .module-nav button {
     padding: 0.5rem 1rem;
     background: #fff;
-    color: #0f3460;
-    text-decoration: none;
+    color: #2b3a67;
+    border: 2px solid transparent;
     border-radius: 8px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
+    cursor: pointer;
     box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
   }
-  .module-nav a:hover { background: #0f3460; color: #fff; }
+  .module-nav button:hover { background: #2b3a67; color: #fff; }
+  .module-nav button.active { border-color: #2b3a67; background: #2b3a67; color: #fff; }
 
   /* ---- Content cards ---- */
   .card {
@@ -57,12 +128,11 @@
   }
 
   .module-header {
-    background: linear-gradient(135deg, #0f3460, #1a4a7a);
+    background: linear-gradient(135deg, #2b3a67, #4a5b92);
     color: #fff;
     border-radius: 12px;
     padding: 1.5rem 2rem;
     margin-bottom: 1.5rem;
-    margin-top: 2.5rem;
   }
   .module-header h2 { font-size: 1.5rem; margin: 0; }
   .module-label {
@@ -78,7 +148,7 @@
 
   .section-number {
     display: inline-block;
-    background: #0f3460;
+    background: #2b3a67;
     color: #fff;
     width: 32px; height: 32px;
     border-radius: 50%;
@@ -108,10 +178,7 @@
     border: 1px solid #dde1e7;
     text-align: left;
   }
-  .card table th {
-    background: #f5f7fa;
-    font-weight: 600;
-  }
+  .card table th { background: #f5f7fa; font-weight: 600; }
 
   /* ---- Case study expandable ---- */
   .case-study {
@@ -119,7 +186,7 @@
     border-radius: 12px;
     margin-bottom: 1.5rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    border-left: 4px solid #e67e22;
+    border-left: 4px solid #cc2936;
     overflow: hidden;
   }
   .case-study-header {
@@ -130,15 +197,11 @@
     justify-content: space-between;
     user-select: none;
   }
-  .case-study-header:hover { background: #fdf6ee; }
-  .case-study-header h3 {
-    font-size: 1.1rem;
-    margin: 0;
-    color: #e67e22;
-  }
+  .case-study-header:hover { background: #fdf0f2; }
+  .case-study-header h3 { font-size: 1.1rem; margin: 0; color: #cc2936; }
   .case-study-toggle {
     font-size: 1.2rem;
-    color: #e67e22;
+    color: #cc2936;
     transition: transform 0.3s;
     flex-shrink: 0;
     margin-left: 1rem;
@@ -149,30 +212,23 @@
     overflow: hidden;
     transition: max-height 0.4s ease;
   }
-  .case-study.open .case-study-body {
-    max-height: 2000px;
-  }
-  .case-study-body-inner {
-    padding: 0 2rem 1.5rem;
-  }
+  .case-study.open .case-study-body { max-height: 2000px; }
+  .case-study-body-inner { padding: 0 2rem 1.5rem; }
   .case-study-body-inner p { margin-bottom: 0.75rem; color: #333; }
-  .case-study-body-inner ul { margin: 0.5rem 0 0.75rem 1.25rem; color: #333; }
-  .case-study-body-inner ul li { margin-bottom: 0.35rem; }
-  .case-study-body-inner ol { margin: 0.5rem 0 0.75rem 1.25rem; color: #333; }
-  .case-study-body-inner ol li { margin-bottom: 0.35rem; }
+  .case-study-body-inner ul, .case-study-body-inner ol { margin: 0.5rem 0 0.75rem 1.25rem; color: #333; }
+  .case-study-body-inner li { margin-bottom: 0.35rem; }
 
   /* ---- Interactive prompt ---- */
   .prompt-box {
-    background: #eef4fb;
+    background: #e8ecf4;
     border-radius: 8px;
     padding: 1rem 1.25rem;
     margin: 0.75rem 0;
-    border-left: 3px solid #0f3460;
+    border-left: 3px solid #2b3a67;
   }
-  .prompt-box strong { color: #0f3460; }
+  .prompt-box strong { color: #2b3a67; }
   .prompt-box p { margin-bottom: 0.5rem; color: #333; }
 
-  /* ---- Text area for reflection ---- */
   .reflection-area {
     width: 100%;
     min-height: 80px;
@@ -185,7 +241,7 @@
     transition: border-color 0.2s;
     margin-top: 0.5rem;
   }
-  .reflection-area:focus { outline: none; border-color: #0f3460; }
+  .reflection-area:focus { outline: none; border-color: #2b3a67; }
 
   /* ---- Buttons ---- */
   .btn {
@@ -200,44 +256,106 @@
     text-decoration: none;
   }
   .btn:active { transform: scale(0.97); }
-  .btn-primary { background: #0f3460; color: #fff; }
-  .btn-primary:hover { background: #1a4a7a; }
-  .btn-center { display: block; margin: 1.5rem auto 2rem; text-align: center; }
+  .btn-primary { background: #2b3a67; color: #fff; }
+  .btn-primary:hover { background: #3a4d80; }
+  .btn-secondary { background: #e0e5f0; color: #2b3a67; }
+  .btn-secondary:hover { background: #dde1e7; }
+  .btn-center { display: block; margin: 1.5rem auto; text-align: center; }
 
   /* ---- Capstone ---- */
   .capstone-card {
-    background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+    background: linear-gradient(135deg, #2b3a67 0%, #2b3a67 100%);
     color: #fff;
     border-radius: 12px;
     padding: 2rem;
     margin-bottom: 1.5rem;
   }
   .capstone-card h3 { color: #fff; margin-bottom: 0.75rem; font-size: 1.3rem; }
-  .capstone-card p { color: #b8c6db; margin-bottom: 0.75rem; }
-  .capstone-card ul { margin: 0.5rem 0 0.75rem 1.25rem; color: #b8c6db; }
+  .capstone-card p { color: #c8d0e0; margin-bottom: 0.75rem; }
+  .capstone-card ul { margin: 0.5rem 0 0.75rem 1.25rem; color: #c8d0e0; }
   .capstone-card ul li { margin-bottom: 0.35rem; }
 
-  /* ---- Tag ---- */
-  .tag {
+  /* ---- Quiz ---- */
+  .question-block {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 4px solid #2b3a67;
+    transition: border-color 0.3s;
+  }
+  .question-block.correct { border-color: #27ae60; }
+  .question-block.incorrect { border-color: #e74c3c; }
+  .question-block h3 { font-size: 1.05rem; margin-bottom: 0.75rem; }
+  .question-type {
     display: inline-block;
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    background: #e8edf3;
+    background: #e0e5f0;
     color: #555;
     padding: 2px 8px;
     border-radius: 4px;
     margin-bottom: 0.5rem;
   }
+  .options label {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.35rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .options label:hover { background: #f5f7fa; }
+  .options input[type="radio"] { margin-right: 0.5rem; }
+  .feedback {
+    margin-top: 0.75rem;
+    padding: 0.6rem 0.85rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct { background: #eafaf1; color: #1e8449; }
+  .feedback.incorrect { background: #fdedec; color: #c0392b; }
+
+  #results-section { display: none; }
+  #results-section.visible { display: block; }
+  .results-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 1.5rem;
+  }
+  .score-circle {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .score-circle.good { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+  .score-circle.ok   { background: linear-gradient(135deg, #f39c12, #f1c40f); }
+  .score-circle.bad  { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+  .results-card p { color: #555; }
 
   /* ---- Responsive ---- */
   @media (max-width: 600px) {
-    header { padding: 2rem 1rem; }
-    header h1 { font-size: 1.5rem; }
-    .card, .case-study, .capstone-card { padding: 1.25rem; }
+    header { padding: 1.5rem 1rem 0.75rem; }
+    header h1 { font-size: 1.4rem; }
+    .card, .case-study, .capstone-card, .question-block { padding: 1.25rem; }
     .case-study-header { padding: 1rem 1.25rem; }
     .case-study-body-inner { padding: 0 1.25rem 1.25rem; }
-    .module-nav a { font-size: 0.75rem; padding: 0.4rem 0.75rem; }
+    .module-nav button { font-size: 0.7rem; padding: 0.35rem 0.6rem; }
+    .page-nav .btn { min-width: 100px; padding: 0.6rem 1rem; font-size: 0.9rem; }
   }
 </style>
 </head>
@@ -246,443 +364,768 @@
 <header>
   <h1>Postgraduate Research Design &amp; Critical Appraisal</h1>
   <p>An advanced learning module supporting postgraduate students in designing rigorous research, conducting systematic literature reviews, critically appraising published work, applying statistical reasoning, and navigating ethical approval processes.</p>
+
+  <!-- Progress bar -->
+  <div class="progress-bar" id="progress-bar">
+    <div class="progress-step active" data-page="0" data-label="Literature Review"></div>
+    <div class="progress-step" data-page="1" data-label="Critical Appraisal"></div>
+    <div class="progress-step" data-page="2" data-label="Statistics"></div>
+    <div class="progress-step" data-page="3" data-label="Methodologies"></div>
+    <div class="progress-step" data-page="4" data-label="Ethics"></div>
+    <div class="progress-step" data-page="5" data-label="Capstone"></div>
+    <div class="progress-step" data-page="6" data-label="Quiz"></div>
+  </div>
 </header>
 
 <main>
 
-  <!-- ===== Module Navigation ===== -->
-  <nav class="module-nav">
-    <a href="#module-1">1. Literature Review</a>
-    <a href="#module-2">2. Critical Appraisal</a>
-    <a href="#module-3">3. Statistics</a>
-    <a href="#module-4">4. Methodologies</a>
-    <a href="#module-5">5. Ethics</a>
-    <a href="#capstone">Capstone</a>
+  <!-- Module nav tabs -->
+  <nav class="module-nav" id="module-nav">
+    <button class="active" data-page="0">1. Literature Review</button>
+    <button data-page="1">2. Critical Appraisal</button>
+    <button data-page="2">3. Statistics</button>
+    <button data-page="3">4. Methodologies</button>
+    <button data-page="4">5. Ethics</button>
+    <button data-page="5">Capstone</button>
+    <button data-page="6">Quiz</button>
   </nav>
 
   <!-- ========================================================= -->
-  <!-- MODULE 1: Conducting a Literature Review                   -->
+  <!-- PAGE 0: MODULE 1 — Literature Review                       -->
   <!-- ========================================================= -->
-  <div class="module-header" id="module-1">
-    <span class="module-label">Module 1</span>
-    <h2>Conducting a Literature Review</h2>
-  </div>
+  <section class="page active" data-page="0">
+    <div class="page-indicator">Module 1 of 5</div>
 
-  <div class="card">
-    <span class="section-number">1.1</span>
-    <h3>What Is a Literature Review?</h3>
-    <p>A literature review is:</p>
-    <ul>
-      <li>A <strong>systematic and reproducible</strong> search of the existing evidence base</li>
-      <li>A <strong>critical evaluation</strong> of sources — not just a summary</li>
-      <li>A <strong>thematic synthesis</strong> that identifies patterns and gaps</li>
-      <li>A <strong>justification</strong> for your own research question</li>
-    </ul>
-    <p><strong>Types of literature review:</strong></p>
-    <ul>
-      <li><strong>Narrative</strong> — Broad overview, less structured</li>
-      <li><strong>Systematic</strong> — Rigorous, reproducible methodology following protocols such as <strong>PRISMA</strong></li>
-      <li><strong>Scoping</strong> — Maps the extent and nature of evidence on a topic</li>
-      <li><strong>Meta-analysis</strong> — Statistical combination of results from multiple studies</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="section-number">1.2</span>
-    <h3>Developing a Research Question</h3>
-    <p>Use established frameworks to sharpen your question:</p>
-    <ul>
-      <li><strong>PICO</strong> — Population, Intervention, Comparison, Outcome</li>
-      <li><strong>SPIDER</strong> — Sample, Phenomenon of Interest, Design, Evaluation, Research type</li>
-      <li><strong>FINER</strong> — Feasible, Interesting, Novel, Ethical, Relevant</li>
-    </ul>
-    <div class="prompt-box">
-      <strong>Interactive Prompt</strong>
-      <p>Refine this vague question into a focused, researchable question:</p>
-      <p><em>"Does stress affect students?"</em></p>
-      <textarea class="reflection-area" placeholder="Write your refined research question here..."></textarea>
+    <div class="module-header">
+      <span class="module-label">Module 1</span>
+      <h2>Conducting a Literature Review</h2>
     </div>
-  </div>
 
-  <div class="card">
-    <span class="section-number">1.3</span>
-    <h3>Advanced Search Strategy</h3>
-    <p>A rigorous search strategy should include:</p>
-    <ul>
-      <li><strong>Boolean operators</strong> — AND, OR, NOT to combine terms</li>
-      <li><strong>MeSH terms</strong> — Controlled vocabulary for medical/health databases</li>
-      <li><strong>Citation chaining</strong> — Following references forwards and backwards</li>
-      <li><strong>Grey literature</strong> — Conference proceedings, theses, policy documents</li>
-      <li><strong>Documentation</strong> — Full recording of search strings, databases, dates, and filters</li>
-    </ul>
-    <div class="prompt-box">
-      <strong>Suggested Template: Search Strategy Log</strong>
-      <p>For each search, record: database name, date, exact search string, filters applied, and number of results returned.</p>
+    <div class="card">
+      <span class="section-number">1.1</span>
+      <h3>What Is a Literature Review?</h3>
+      <p>A literature review is:</p>
+      <ul>
+        <li>A <strong>systematic and reproducible</strong> search of the existing evidence base</li>
+        <li>A <strong>critical evaluation</strong> of sources — not just a summary</li>
+        <li>A <strong>thematic synthesis</strong> that identifies patterns and gaps</li>
+        <li>A <strong>justification</strong> for your own research question</li>
+      </ul>
+      <p><strong>Types of literature review:</strong></p>
+      <ul>
+        <li><strong>Narrative</strong> — Broad overview, less structured</li>
+        <li><strong>Systematic</strong> — Rigorous, reproducible methodology following protocols such as <strong>PRISMA</strong></li>
+        <li><strong>Scoping</strong> — Maps the extent and nature of evidence on a topic</li>
+        <li><strong>Meta-analysis</strong> — Statistical combination of results from multiple studies</li>
+      </ul>
     </div>
-  </div>
 
-  <div class="card">
-    <span class="section-number">1.4</span>
-    <h3>Synthesis at Postgraduate Level</h3>
-    <p>Move beyond descriptive summary to analytical synthesis:</p>
-    <ul>
-      <li><strong>Thematic mapping</strong> — Group findings by theme, not by individual study</li>
-      <li><strong>Methodological comparison</strong> — Compare strengths and weaknesses across studies</li>
-      <li><strong>Gap justification</strong> — Clearly articulate what remains unknown</li>
-      <li><strong>Theoretical tensions</strong> — Identify conflicting frameworks or findings</li>
-    </ul>
-  </div>
-
-  <!-- Case Study 1 -->
-  <div class="case-study" id="cs1">
-    <div class="case-study-header" onclick="toggleCase('cs1')">
-      <h3>Case Study 1: Weak Literature Review</h3>
-      <span class="case-study-toggle">&#9660;</span>
+    <div class="card">
+      <span class="section-number">1.2</span>
+      <h3>Developing a Research Question</h3>
+      <p>Use established frameworks to sharpen your question:</p>
+      <ul>
+        <li><strong>PICO</strong> — Population, Intervention, Comparison, Outcome</li>
+        <li><strong>SPIDER</strong> — Sample, Phenomenon of Interest, Design, Evaluation, Research type</li>
+        <li><strong>FINER</strong> — Feasible, Interesting, Novel, Ethical, Relevant</li>
+      </ul>
+      <div class="prompt-box">
+        <strong>Interactive Prompt</strong>
+        <p>Refine this vague question into a focused, researchable question:</p>
+        <p><em>"Does stress affect students?"</em></p>
+        <textarea class="reflection-area" placeholder="Write your refined research question here..."></textarea>
+      </div>
     </div>
-    <div class="case-study-body">
-      <div class="case-study-body-inner">
-        <p><strong>Scenario:</strong> A postgraduate student presents 40 summarised articles on burnout but provides no synthesis, no defined research question, and no critical evaluation of methodology.</p>
-        <div class="prompt-box">
-          <strong>Activity</strong>
-          <ol>
-            <li>Identify 3 weaknesses in this approach.</li>
-            <li>Rewrite the research question using the PICO framework.</li>
-            <li>Suggest a synthesis structure that moves beyond simple description.</li>
-          </ol>
-          <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+
+    <div class="card">
+      <span class="section-number">1.3</span>
+      <h3>Advanced Search Strategy</h3>
+      <p>A rigorous search strategy should include:</p>
+      <ul>
+        <li><strong>Boolean operators</strong> — AND, OR, NOT to combine terms</li>
+        <li><strong>MeSH terms</strong> — Controlled vocabulary for medical/health databases</li>
+        <li><strong>Citation chaining</strong> — Following references forwards and backwards</li>
+        <li><strong>Grey literature</strong> — Conference proceedings, theses, policy documents</li>
+        <li><strong>Documentation</strong> — Full recording of search strings, databases, dates, and filters</li>
+      </ul>
+      <div class="prompt-box">
+        <strong>Suggested Template: Search Strategy Log</strong>
+        <p>For each search, record: database name, date, exact search string, filters applied, and number of results returned.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="section-number">1.4</span>
+      <h3>Synthesis at Postgraduate Level</h3>
+      <p>Move beyond descriptive summary to analytical synthesis:</p>
+      <ul>
+        <li><strong>Thematic mapping</strong> — Group findings by theme, not by individual study</li>
+        <li><strong>Methodological comparison</strong> — Compare strengths and weaknesses across studies</li>
+        <li><strong>Gap justification</strong> — Clearly articulate what remains unknown</li>
+        <li><strong>Theoretical tensions</strong> — Identify conflicting frameworks or findings</li>
+      </ul>
+    </div>
+
+    <div class="case-study" id="cs1">
+      <div class="case-study-header" onclick="toggleCase('cs1')">
+        <h3>Case Study 1: Weak Literature Review</h3>
+        <span class="case-study-toggle">&#9660;</span>
+      </div>
+      <div class="case-study-body">
+        <div class="case-study-body-inner">
+          <p><strong>Scenario:</strong> A postgraduate student presents 40 summarised articles on burnout but provides no synthesis, no defined research question, and no critical evaluation of methodology.</p>
+          <div class="prompt-box">
+            <strong>Activity</strong>
+            <ol>
+              <li>Identify 3 weaknesses in this approach.</li>
+              <li>Rewrite the research question using the PICO framework.</li>
+              <li>Suggest a synthesis structure that moves beyond simple description.</li>
+            </ol>
+            <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- ========================================================= -->
-  <!-- MODULE 2: Critical Appraisal                               -->
-  <!-- ========================================================= -->
-  <div class="module-header" id="module-2">
-    <span class="module-label">Module 2</span>
-    <h2>Critical Appraisal</h2>
-  </div>
-
-  <div class="card">
-    <span class="section-number">2.1</span>
-    <h3>Appraisal Frameworks</h3>
-    <p>Use established tools to systematically evaluate research quality:</p>
-    <ul>
-      <li><strong>CASP</strong> (Critical Appraisal Skills Programme) — Checklists for different study types</li>
-      <li><strong>Joanna Briggs Institute</strong> — Standardised tools for various methodologies</li>
-      <li><strong>CONSORT</strong> — Specific reporting guidelines for randomised controlled trials (RCTs)</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="section-number">2.2</span>
-    <h3>Validity</h3>
-    <p><strong>Internal Validity</strong> — Can we trust the results within the study?</p>
-    <ul>
-      <li><strong>Bias</strong> — Selection, measurement, attrition, reporting bias</li>
-      <li><strong>Confounding</strong> — Unmeasured variables influencing outcomes</li>
-      <li><strong>Randomisation</strong> — Were groups allocated fairly?</li>
-    </ul>
-    <p><strong>External Validity</strong> — Can findings be applied beyond the study?</p>
-    <ul>
-      <li><strong>Generalisability</strong> — Does the sample represent the wider population?</li>
-      <li><strong>Population relevance</strong> — Are inclusion/exclusion criteria appropriate?</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="section-number">2.3</span>
-    <h3>Advanced Critique</h3>
-    <p>Postgraduate-level critique should go beyond basic checklists to assess:</p>
-    <ul>
-      <li><strong>Ontological coherence</strong> (qualitative) — Does the methodology align with the philosophical position?</li>
-      <li><strong>Statistical assumptions</strong> — Were tests used appropriately for the data?</li>
-      <li><strong>Missing data handling</strong> — How were dropouts, non-responses, and incomplete data treated?</li>
-      <li><strong>Funding bias</strong> — Could the funding source influence findings?</li>
-      <li><strong>Reproducibility</strong> — Could another researcher replicate this study?</li>
-      <li><strong>Transparency</strong> — Were protocols pre-registered? Is data available?</li>
-    </ul>
-  </div>
-
-  <!-- Case Study 2 -->
-  <div class="case-study" id="cs2">
-    <div class="case-study-header" onclick="toggleCase('cs2')">
-      <h3>Case Study 2: Questionable RCT</h3>
-      <span class="case-study-toggle">&#9660;</span>
+    <div class="page-nav">
+      <span class="spacer"></span>
+      <button class="btn btn-primary" onclick="goToPage(1)">Next: Critical Appraisal &rarr;</button>
     </div>
-    <div class="case-study-body">
-      <div class="case-study-body-inner">
-        <p><strong>Scenario:</strong> An RCT reports a significant finding (p = 0.04) with n = 38 participants. There is no power calculation reported, 30% attrition, and the authors make strong clinical claims.</p>
-        <div class="prompt-box">
-          <strong>Interactive Questions</strong>
-          <ol>
-            <li>Is this study likely underpowered? Why does that matter?</li>
-            <li>What types of bias may be introduced by 30% attrition?</li>
-            <li>Are the conclusions justified given these limitations?</li>
-          </ol>
-          <textarea class="reflection-area" placeholder="Write your critical appraisal here..."></textarea>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PAGE 1: MODULE 2 — Critical Appraisal                     -->
+  <!-- ========================================================= -->
+  <section class="page" data-page="1">
+    <div class="page-indicator">Module 2 of 5</div>
+
+    <div class="module-header">
+      <span class="module-label">Module 2</span>
+      <h2>Critical Appraisal</h2>
+    </div>
+
+    <div class="card">
+      <span class="section-number">2.1</span>
+      <h3>Appraisal Frameworks</h3>
+      <p>Use established tools to systematically evaluate research quality:</p>
+      <ul>
+        <li><strong>CASP</strong> (Critical Appraisal Skills Programme) — Checklists for different study types</li>
+        <li><strong>Joanna Briggs Institute</strong> — Standardised tools for various methodologies</li>
+        <li><strong>CONSORT</strong> — Specific reporting guidelines for randomised controlled trials (RCTs)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="section-number">2.2</span>
+      <h3>Validity</h3>
+      <p><strong>Internal Validity</strong> — Can we trust the results within the study?</p>
+      <ul>
+        <li><strong>Bias</strong> — Selection, measurement, attrition, reporting bias</li>
+        <li><strong>Confounding</strong> — Unmeasured variables influencing outcomes</li>
+        <li><strong>Randomisation</strong> — Were groups allocated fairly?</li>
+      </ul>
+      <p><strong>External Validity</strong> — Can findings be applied beyond the study?</p>
+      <ul>
+        <li><strong>Generalisability</strong> — Does the sample represent the wider population?</li>
+        <li><strong>Population relevance</strong> — Are inclusion/exclusion criteria appropriate?</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="section-number">2.3</span>
+      <h3>Advanced Critique</h3>
+      <p>Postgraduate-level critique should go beyond basic checklists to assess:</p>
+      <ul>
+        <li><strong>Ontological coherence</strong> (qualitative) — Does the methodology align with the philosophical position?</li>
+        <li><strong>Statistical assumptions</strong> — Were tests used appropriately for the data?</li>
+        <li><strong>Missing data handling</strong> — How were dropouts, non-responses, and incomplete data treated?</li>
+        <li><strong>Funding bias</strong> — Could the funding source influence findings?</li>
+        <li><strong>Reproducibility</strong> — Could another researcher replicate this study?</li>
+        <li><strong>Transparency</strong> — Were protocols pre-registered? Is data available?</li>
+      </ul>
+    </div>
+
+    <div class="case-study" id="cs2">
+      <div class="case-study-header" onclick="toggleCase('cs2')">
+        <h3>Case Study 2: Questionable RCT</h3>
+        <span class="case-study-toggle">&#9660;</span>
+      </div>
+      <div class="case-study-body">
+        <div class="case-study-body-inner">
+          <p><strong>Scenario:</strong> An RCT reports a significant finding (p = 0.04) with n = 38 participants. There is no power calculation reported, 30% attrition, and the authors make strong clinical claims.</p>
+          <div class="prompt-box">
+            <strong>Interactive Questions</strong>
+            <ol>
+              <li>Is this study likely underpowered? Why does that matter?</li>
+              <li>What types of bias may be introduced by 30% attrition?</li>
+              <li>Are the conclusions justified given these limitations?</li>
+            </ol>
+            <textarea class="reflection-area" placeholder="Write your critical appraisal here..."></textarea>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- ========================================================= -->
-  <!-- MODULE 3: Statistics for Researchers                       -->
-  <!-- ========================================================= -->
-  <div class="module-header" id="module-3">
-    <span class="module-label">Module 3</span>
-    <h2>Statistics for Researchers</h2>
-  </div>
-
-  <div class="card">
-    <span class="section-number">3.1</span>
-    <h3>Descriptive vs Inferential Statistics</h3>
-    <p><strong>Descriptive statistics</strong> summarise your data:</p>
-    <ul>
-      <li><strong>Mean</strong> — The average value</li>
-      <li><strong>Median</strong> — The middle value in ordered data</li>
-      <li><strong>Standard deviation</strong> — How spread out values are from the mean</li>
-    </ul>
-    <p><strong>Inferential statistics</strong> draw conclusions beyond your sample:</p>
-    <ul>
-      <li><strong>p-value</strong> — The probability of observing your results if the null hypothesis is true</li>
-      <li><strong>Confidence intervals</strong> — A range of plausible values for the true effect</li>
-      <li><strong>Hypothesis testing</strong> — Formal process of accepting or rejecting the null hypothesis</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="section-number">3.2</span>
-    <h3>Beyond p &lt; 0.05</h3>
-    <p>Statistical significance alone is not enough. Consider:</p>
-    <ul>
-      <li><strong>Effect size</strong> (e.g. Cohen's d) — How large is the effect in practical terms?</li>
-      <li><strong>Confidence intervals</strong> — How precise is the estimate?</li>
-      <li><strong>Clinical/practical significance</strong> — Does the effect matter in the real world?</li>
-      <li><strong>Sample size influence</strong> — Very large samples can produce statistically significant but trivially small effects</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="section-number">3.3</span>
-    <h3>Choosing Statistical Tests</h3>
-    <table>
-      <thead>
-        <tr><th>Scenario</th><th>Suggested Test</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Compare 2 means</td><td>t-test</td></tr>
-        <tr><td>Compare 3+ means</td><td>ANOVA</td></tr>
-        <tr><td>Categorical association</td><td>Chi-square</td></tr>
-        <tr><td>Prediction</td><td>Regression</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Case Study 3 -->
-  <div class="case-study" id="cs3">
-    <div class="case-study-header" onclick="toggleCase('cs3')">
-      <h3>Case Study 3: Interpreting Significance</h3>
-      <span class="case-study-toggle">&#9660;</span>
+    <div class="page-nav">
+      <button class="btn btn-secondary" onclick="goToPage(0)">&larr; Previous</button>
+      <button class="btn btn-primary" onclick="goToPage(2)">Next: Statistics &rarr;</button>
     </div>
-    <div class="case-study-body">
-      <div class="case-study-body-inner">
-        <p><strong>Scenario:</strong> A study reports p = 0.001, Cohen's d = 0.18, and n = 3,000.</p>
-        <div class="prompt-box">
-          <strong>Discussion Prompt</strong>
-          <p>The result is highly statistically significant but the effect size is very small. Should this finding influence policy? Why or why not?</p>
-          <textarea class="reflection-area" placeholder="Write your analysis here..."></textarea>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PAGE 2: MODULE 3 — Statistics                              -->
+  <!-- ========================================================= -->
+  <section class="page" data-page="2">
+    <div class="page-indicator">Module 3 of 5</div>
+
+    <div class="module-header">
+      <span class="module-label">Module 3</span>
+      <h2>Statistics for Researchers</h2>
+    </div>
+
+    <div class="card">
+      <span class="section-number">3.1</span>
+      <h3>Descriptive vs Inferential Statistics</h3>
+      <p><strong>Descriptive statistics</strong> summarise your data:</p>
+      <ul>
+        <li><strong>Mean</strong> — The average value</li>
+        <li><strong>Median</strong> — The middle value in ordered data</li>
+        <li><strong>Standard deviation</strong> — How spread out values are from the mean</li>
+      </ul>
+      <p><strong>Inferential statistics</strong> draw conclusions beyond your sample:</p>
+      <ul>
+        <li><strong>p-value</strong> — The probability of observing your results if the null hypothesis is true</li>
+        <li><strong>Confidence intervals</strong> — A range of plausible values for the true effect</li>
+        <li><strong>Hypothesis testing</strong> — Formal process of accepting or rejecting the null hypothesis</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="section-number">3.2</span>
+      <h3>Beyond p &lt; 0.05</h3>
+      <p>Statistical significance alone is not enough. Consider:</p>
+      <ul>
+        <li><strong>Effect size</strong> (e.g. Cohen's d) — How large is the effect in practical terms?</li>
+        <li><strong>Confidence intervals</strong> — How precise is the estimate?</li>
+        <li><strong>Clinical/practical significance</strong> — Does the effect matter in the real world?</li>
+        <li><strong>Sample size influence</strong> — Very large samples can produce statistically significant but trivially small effects</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="section-number">3.3</span>
+      <h3>Choosing Statistical Tests</h3>
+      <table>
+        <thead>
+          <tr><th>Scenario</th><th>Suggested Test</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Compare 2 means</td><td>t-test</td></tr>
+          <tr><td>Compare 3+ means</td><td>ANOVA</td></tr>
+          <tr><td>Categorical association</td><td>Chi-square</td></tr>
+          <tr><td>Prediction</td><td>Regression</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="case-study" id="cs3">
+      <div class="case-study-header" onclick="toggleCase('cs3')">
+        <h3>Case Study 3: Interpreting Significance</h3>
+        <span class="case-study-toggle">&#9660;</span>
+      </div>
+      <div class="case-study-body">
+        <div class="case-study-body-inner">
+          <p><strong>Scenario:</strong> A study reports p = 0.001, Cohen's d = 0.18, and n = 3,000.</p>
+          <div class="prompt-box">
+            <strong>Discussion Prompt</strong>
+            <p>The result is highly statistically significant but the effect size is very small. Should this finding influence policy? Why or why not?</p>
+            <textarea class="reflection-area" placeholder="Write your analysis here..."></textarea>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- ========================================================= -->
-  <!-- MODULE 4: Research Methodologies                           -->
-  <!-- ========================================================= -->
-  <div class="module-header" id="module-4">
-    <span class="module-label">Module 4</span>
-    <h2>Research Methodologies</h2>
-  </div>
-
-  <div class="card">
-    <span class="section-number">4.1</span>
-    <h3>Quantitative Research</h3>
-    <p>Characteristics of quantitative approaches:</p>
-    <ul>
-      <li><strong>Hypothesis testing</strong> — Starts with a testable prediction</li>
-      <li><strong>Structured design</strong> — Predetermined variables and procedures</li>
-      <li><strong>Large samples</strong> — Aims for statistical power and generalisability</li>
-      <li><strong>Causality</strong> — Experimental designs can establish cause and effect</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="section-number">4.2</span>
-    <h3>Qualitative Research</h3>
-    <p>Characteristics of qualitative approaches:</p>
-    <ul>
-      <li><strong>Meaning exploration</strong> — Seeks to understand experiences and perspectives</li>
-      <li><strong>Interviews and focus groups</strong> — In-depth data collection methods</li>
-      <li><strong>Thematic analysis</strong> — Identifying patterns and themes in the data</li>
-      <li><strong>Reflexivity</strong> — The researcher acknowledges their influence on the research</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="section-number">4.3</span>
-    <h3>Study Design Hierarchy</h3>
-    <p>The hierarchy of evidence (from strongest to weakest for questions of effectiveness):</p>
-    <ol>
-      <li><strong>Systematic Review / Meta-analysis</strong></li>
-      <li><strong>Randomised Controlled Trial (RCT)</strong></li>
-      <li><strong>Cohort Study</strong></li>
-      <li><strong>Case-Control Study</strong></li>
-      <li><strong>Cross-Sectional Study</strong></li>
-    </ol>
-  </div>
-
-  <!-- Case Study 4 -->
-  <div class="case-study" id="cs4">
-    <div class="case-study-header" onclick="toggleCase('cs4')">
-      <h3>Case Study 4: Design Selection</h3>
-      <span class="case-study-toggle">&#9660;</span>
+    <div class="page-nav">
+      <button class="btn btn-secondary" onclick="goToPage(1)">&larr; Previous</button>
+      <button class="btn btn-primary" onclick="goToPage(3)">Next: Methodologies &rarr;</button>
     </div>
-    <div class="case-study-body">
-      <div class="case-study-body-inner">
-        <p><strong>Scenario:</strong> A researcher asks: <em>"How do first-generation postgraduates experience imposter syndrome?"</em></p>
-        <div class="prompt-box">
-          <strong>Interactive Task</strong>
-          <ol>
-            <li>Select an appropriate methodology and justify your choice.</li>
-            <li>Justify the epistemological position (e.g. interpretivist, positivist).</li>
-            <li>Propose a sampling strategy and explain why it fits.</li>
-          </ol>
-          <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PAGE 3: MODULE 4 — Research Methodologies                  -->
+  <!-- ========================================================= -->
+  <section class="page" data-page="3">
+    <div class="page-indicator">Module 4 of 5</div>
+
+    <div class="module-header">
+      <span class="module-label">Module 4</span>
+      <h2>Research Methodologies</h2>
+    </div>
+
+    <div class="card">
+      <span class="section-number">4.1</span>
+      <h3>Quantitative Research</h3>
+      <p>Characteristics of quantitative approaches:</p>
+      <ul>
+        <li><strong>Hypothesis testing</strong> — Starts with a testable prediction</li>
+        <li><strong>Structured design</strong> — Predetermined variables and procedures</li>
+        <li><strong>Large samples</strong> — Aims for statistical power and generalisability</li>
+        <li><strong>Causality</strong> — Experimental designs can establish cause and effect</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="section-number">4.2</span>
+      <h3>Qualitative Research</h3>
+      <p>Characteristics of qualitative approaches:</p>
+      <ul>
+        <li><strong>Meaning exploration</strong> — Seeks to understand experiences and perspectives</li>
+        <li><strong>Interviews and focus groups</strong> — In-depth data collection methods</li>
+        <li><strong>Thematic analysis</strong> — Identifying patterns and themes in the data</li>
+        <li><strong>Reflexivity</strong> — The researcher acknowledges their influence on the research</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="section-number">4.3</span>
+      <h3>Study Design Hierarchy</h3>
+      <p>The hierarchy of evidence (from strongest to weakest for questions of effectiveness):</p>
+      <ol>
+        <li><strong>Systematic Review / Meta-analysis</strong></li>
+        <li><strong>Randomised Controlled Trial (RCT)</strong></li>
+        <li><strong>Cohort Study</strong></li>
+        <li><strong>Case-Control Study</strong></li>
+        <li><strong>Cross-Sectional Study</strong></li>
+      </ol>
+    </div>
+
+    <div class="case-study" id="cs4">
+      <div class="case-study-header" onclick="toggleCase('cs4')">
+        <h3>Case Study 4: Design Selection</h3>
+        <span class="case-study-toggle">&#9660;</span>
+      </div>
+      <div class="case-study-body">
+        <div class="case-study-body-inner">
+          <p><strong>Scenario:</strong> A researcher asks: <em>"How do first-generation postgraduates experience imposter syndrome?"</em></p>
+          <div class="prompt-box">
+            <strong>Interactive Task</strong>
+            <ol>
+              <li>Select an appropriate methodology and justify your choice.</li>
+              <li>Justify the epistemological position (e.g. interpretivist, positivist).</li>
+              <li>Propose a sampling strategy and explain why it fits.</li>
+            </ol>
+            <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- ========================================================= -->
-  <!-- MODULE 5: Ethical Approval & Governance                    -->
-  <!-- ========================================================= -->
-  <div class="module-header" id="module-5">
-    <span class="module-label">Module 5</span>
-    <h2>Ethical Approval &amp; Governance</h2>
-  </div>
-
-  <div class="card">
-    <span class="section-number">5.1</span>
-    <h3>Ethical Foundations</h3>
-    <p>Core principles derived from the <strong>Declaration of Helsinki</strong>, developed by the World Medical Association:</p>
-    <ul>
-      <li><strong>Autonomy</strong> — Respect for participants' right to make informed decisions</li>
-      <li><strong>Beneficence</strong> — Research should aim to do good</li>
-      <li><strong>Non-maleficence</strong> — Minimise harm and risk to participants</li>
-      <li><strong>Justice</strong> — Fair distribution of research benefits and burdens</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="section-number">5.2</span>
-    <h3>Ethics Committees / IRB</h3>
-    <p>Ethics committees (or Institutional Review Boards) are responsible for:</p>
-    <ul>
-      <li><strong>Risk-benefit analysis</strong> — Weighing potential harm against expected benefits</li>
-      <li><strong>Consent process review</strong> — Ensuring participants give truly informed consent</li>
-      <li><strong>Confidentiality safeguards</strong> — Protecting participant data and identity</li>
-      <li><strong>Data protection compliance</strong> — Ensuring adherence to GDPR and institutional policies</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <span class="section-number">5.3</span>
-    <h3>Postgraduate Ethical Challenges</h3>
-    <p>Common ethical challenges faced by postgraduate researchers:</p>
-    <ul>
-      <li><strong>Researching your own students</strong> — Dual roles create power imbalances</li>
-      <li><strong>Vulnerable populations</strong> — Additional protections and sensitivity required</li>
-      <li><strong>Power imbalances</strong> — Between researcher and participants</li>
-      <li><strong>AI usage in research</strong> — Transparency about AI-assisted analysis or writing</li>
-      <li><strong>GDPR compliance</strong> — Data storage, processing, and participant rights</li>
-    </ul>
-  </div>
-
-  <!-- Case Study 5 -->
-  <div class="case-study" id="cs5">
-    <div class="case-study-header" onclick="toggleCase('cs5')">
-      <h3>Case Study 5: Dual Role Dilemma</h3>
-      <span class="case-study-toggle">&#9660;</span>
+    <div class="page-nav">
+      <button class="btn btn-secondary" onclick="goToPage(2)">&larr; Previous</button>
+      <button class="btn btn-primary" onclick="goToPage(4)">Next: Ethics &rarr;</button>
     </div>
-    <div class="case-study-body">
-      <div class="case-study-body-inner">
-        <p><strong>Scenario:</strong> A lecturer interviews their own students about academic anxiety as part of their postgraduate research project.</p>
-        <div class="prompt-box">
-          <strong>Interactive Questions</strong>
-          <ol>
-            <li>What ethical risks exist in this scenario?</li>
-            <li>How could coercion occur, even unintentionally?</li>
-            <li>What safeguards would you implement to mitigate these risks?</li>
-          </ol>
-          <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PAGE 4: MODULE 5 — Ethics                                  -->
+  <!-- ========================================================= -->
+  <section class="page" data-page="4">
+    <div class="page-indicator">Module 5 of 5</div>
+
+    <div class="module-header">
+      <span class="module-label">Module 5</span>
+      <h2>Ethical Approval &amp; Governance</h2>
+    </div>
+
+    <div class="card">
+      <span class="section-number">5.1</span>
+      <h3>Ethical Foundations</h3>
+      <p>Core principles derived from the <strong>Declaration of Helsinki</strong>, developed by the World Medical Association:</p>
+      <ul>
+        <li><strong>Autonomy</strong> — Respect for participants' right to make informed decisions</li>
+        <li><strong>Beneficence</strong> — Research should aim to do good</li>
+        <li><strong>Non-maleficence</strong> — Minimise harm and risk to participants</li>
+        <li><strong>Justice</strong> — Fair distribution of research benefits and burdens</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="section-number">5.2</span>
+      <h3>Ethics Committees / IRB</h3>
+      <p>Ethics committees (or Institutional Review Boards) are responsible for:</p>
+      <ul>
+        <li><strong>Risk-benefit analysis</strong> — Weighing potential harm against expected benefits</li>
+        <li><strong>Consent process review</strong> — Ensuring participants give truly informed consent</li>
+        <li><strong>Confidentiality safeguards</strong> — Protecting participant data and identity</li>
+        <li><strong>Data protection compliance</strong> — Ensuring adherence to GDPR and institutional policies</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="section-number">5.3</span>
+      <h3>Postgraduate Ethical Challenges</h3>
+      <p>Common ethical challenges faced by postgraduate researchers:</p>
+      <ul>
+        <li><strong>Researching your own students</strong> — Dual roles create power imbalances</li>
+        <li><strong>Vulnerable populations</strong> — Additional protections and sensitivity required</li>
+        <li><strong>Power imbalances</strong> — Between researcher and participants</li>
+        <li><strong>AI usage in research</strong> — Transparency about AI-assisted analysis or writing</li>
+        <li><strong>GDPR compliance</strong> — Data storage, processing, and participant rights</li>
+      </ul>
+    </div>
+
+    <div class="case-study" id="cs5">
+      <div class="case-study-header" onclick="toggleCase('cs5')">
+        <h3>Case Study 5: Dual Role Dilemma</h3>
+        <span class="case-study-toggle">&#9660;</span>
+      </div>
+      <div class="case-study-body">
+        <div class="case-study-body-inner">
+          <p><strong>Scenario:</strong> A lecturer interviews their own students about academic anxiety as part of their postgraduate research project.</p>
+          <div class="prompt-box">
+            <strong>Interactive Questions</strong>
+            <ol>
+              <li>What ethical risks exist in this scenario?</li>
+              <li>How could coercion occur, even unintentionally?</li>
+              <li>What safeguards would you implement to mitigate these risks?</li>
+            </ol>
+            <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <div class="page-nav">
+      <button class="btn btn-secondary" onclick="goToPage(3)">&larr; Previous</button>
+      <button class="btn btn-primary" onclick="goToPage(5)">Next: Capstone &rarr;</button>
+    </div>
+  </section>
 
   <!-- ========================================================= -->
-  <!-- CAPSTONE PROJECT                                           -->
+  <!-- PAGE 5: CAPSTONE                                           -->
   <!-- ========================================================= -->
-  <div class="module-header" id="capstone" style="background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);">
-    <span class="module-label">Capstone</span>
-    <h2>Integrated Research Design Exercise</h2>
-  </div>
+  <section class="page" data-page="5">
+    <div class="page-indicator">Capstone Project</div>
 
-  <div class="capstone-card">
-    <h3>Design a Complete Research Study</h3>
-    <p>Design a study examining:</p>
-    <p><strong style="color: #fff; font-size: 1.1rem;">Mindfulness interventions and burnout among junior doctors</strong></p>
-    <p>Your design should include:</p>
-    <ul>
-      <li>A focused research question (using PICO or SPIDER)</li>
-      <li>A literature review search strategy</li>
-      <li>A justified methodology and study design</li>
-      <li>A statistical analysis plan</li>
-      <li>Ethical considerations and governance requirements</li>
-    </ul>
-  </div>
+    <div class="module-header" style="background: linear-gradient(135deg, #2b3a67 0%, #2b3a67 100%);">
+      <span class="module-label">Capstone</span>
+      <h2>Integrated Research Design Exercise</h2>
+    </div>
 
-  <div class="card">
-    <h3>Your Research Design</h3>
-    <p>Use the space below to draft your integrated research design. Draw on everything covered in Modules 1&ndash;5.</p>
-    <textarea class="reflection-area" style="min-height: 200px;" placeholder="Draft your complete research design here..."></textarea>
-  </div>
+    <div class="capstone-card">
+      <h3>Design a Complete Research Study</h3>
+      <p>Design a study examining:</p>
+      <p><strong style="color: #fff; font-size: 1.1rem;">Mindfulness interventions and burnout among junior doctors</strong></p>
+      <p>Your design should include:</p>
+      <ul>
+        <li>A focused research question (using PICO or SPIDER)</li>
+        <li>A literature review search strategy</li>
+        <li>A justified methodology and study design</li>
+        <li>A statistical analysis plan</li>
+        <li>Ethical considerations and governance requirements</li>
+      </ul>
+    </div>
 
-  <!-- Back to top -->
-  <a href="#" class="btn btn-primary btn-center" style="text-align: center; max-width: 200px;">Back to Top</a>
+    <div class="card">
+      <h3>Your Research Design</h3>
+      <p>Use the space below to draft your integrated research design. Draw on everything covered in Modules 1&ndash;5.</p>
+      <textarea class="reflection-area" style="min-height: 200px;" placeholder="Draft your complete research design here..."></textarea>
+    </div>
+
+    <div class="page-nav">
+      <button class="btn btn-secondary" onclick="goToPage(4)">&larr; Previous</button>
+      <button class="btn btn-primary" onclick="goToPage(6)">Next: Take the Quiz &rarr;</button>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PAGE 6: QUIZ                                               -->
+  <!-- ========================================================= -->
+  <section class="page" data-page="6">
+    <div class="page-indicator">Assessment</div>
+
+    <div class="module-header">
+      <span class="module-label">Assessment</span>
+      <h2>Knowledge Check — 80% Pass Rate Required</h2>
+    </div>
+
+    <div class="card" style="text-align:center; border-left: 4px solid #2b3a67;">
+      <p>Answer all 10 questions below. You need <strong>at least 8 out of 10 correct</strong> to pass.</p>
+    </div>
+
+    <!-- Q1 -->
+    <div class="question-block" data-answer="systematic" id="q1">
+      <span class="question-type">Module 1 — Literature Review</span>
+      <h3>1. Which type of literature review follows a rigorous, reproducible methodology and reports according to PRISMA guidelines?</h3>
+      <div class="options">
+        <label><input type="radio" name="q1" value="narrative"> Narrative</label>
+        <label><input type="radio" name="q1" value="scoping"> Scoping</label>
+        <label><input type="radio" name="q1" value="systematic"> Systematic</label>
+        <label><input type="radio" name="q1" value="meta-analysis"> Meta-analysis</label>
+      </div>
+      <div class="feedback" id="fb-q1"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-block" data-answer="pico" id="q2">
+      <span class="question-type">Module 1 — Research Questions</span>
+      <h3>2. Which framework uses Population, Intervention, Comparison, and Outcome to structure a research question?</h3>
+      <div class="options">
+        <label><input type="radio" name="q2" value="finer"> FINER</label>
+        <label><input type="radio" name="q2" value="spider"> SPIDER</label>
+        <label><input type="radio" name="q2" value="pico"> PICO</label>
+        <label><input type="radio" name="q2" value="casp"> CASP</label>
+      </div>
+      <div class="feedback" id="fb-q2"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-block" data-answer="consort" id="q3">
+      <span class="question-type">Module 2 — Critical Appraisal</span>
+      <h3>3. Which reporting guideline is specifically designed for evaluating randomised controlled trials?</h3>
+      <div class="options">
+        <label><input type="radio" name="q3" value="casp"> CASP</label>
+        <label><input type="radio" name="q3" value="prisma"> PRISMA</label>
+        <label><input type="radio" name="q3" value="consort"> CONSORT</label>
+        <label><input type="radio" name="q3" value="jbi"> Joanna Briggs Institute</label>
+      </div>
+      <div class="feedback" id="fb-q3"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-block" data-answer="false" id="q4">
+      <span class="question-type">Module 2 — Validity</span>
+      <h3>4. External validity refers to whether the results can be trusted within the study itself.</h3>
+      <div class="options">
+        <label><input type="radio" name="q4" value="true"> True</label>
+        <label><input type="radio" name="q4" value="false"> False</label>
+      </div>
+      <div class="feedback" id="fb-q4"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-block" data-answer="effect size" id="q5">
+      <span class="question-type">Module 3 — Statistics</span>
+      <h3>5. What measure, such as Cohen's d, tells you the practical magnitude of a result rather than just whether it is statistically significant?</h3>
+      <div class="options">
+        <label><input type="radio" name="q5" value="p-value"> p-value</label>
+        <label><input type="radio" name="q5" value="confidence interval"> Confidence interval</label>
+        <label><input type="radio" name="q5" value="effect size"> Effect size</label>
+        <label><input type="radio" name="q5" value="standard deviation"> Standard deviation</label>
+      </div>
+      <div class="feedback" id="fb-q5"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-block" data-answer="anova" id="q6">
+      <span class="question-type">Module 3 — Statistical Tests</span>
+      <h3>6. Which statistical test would you use to compare the means of three or more groups?</h3>
+      <div class="options">
+        <label><input type="radio" name="q6" value="t-test"> t-test</label>
+        <label><input type="radio" name="q6" value="anova"> ANOVA</label>
+        <label><input type="radio" name="q6" value="chi-square"> Chi-square</label>
+        <label><input type="radio" name="q6" value="regression"> Regression</label>
+      </div>
+      <div class="feedback" id="fb-q6"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question-block" data-answer="qualitative" id="q7">
+      <span class="question-type">Module 4 — Methodologies</span>
+      <h3>7. A study using interviews and thematic analysis to explore lived experiences is an example of which research approach?</h3>
+      <div class="options">
+        <label><input type="radio" name="q7" value="quantitative"> Quantitative</label>
+        <label><input type="radio" name="q7" value="qualitative"> Qualitative</label>
+        <label><input type="radio" name="q7" value="meta-analysis"> Meta-analysis</label>
+        <label><input type="radio" name="q7" value="cross-sectional"> Cross-sectional</label>
+      </div>
+      <div class="feedback" id="fb-q7"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question-block" data-answer="systematic review" id="q8">
+      <span class="question-type">Module 4 — Evidence Hierarchy</span>
+      <h3>8. What sits at the top of the hierarchy of evidence for questions of effectiveness?</h3>
+      <div class="options">
+        <label><input type="radio" name="q8" value="rct"> Randomised Controlled Trial</label>
+        <label><input type="radio" name="q8" value="cohort"> Cohort Study</label>
+        <label><input type="radio" name="q8" value="systematic review"> Systematic Review / Meta-analysis</label>
+        <label><input type="radio" name="q8" value="case-control"> Case-Control Study</label>
+      </div>
+      <div class="feedback" id="fb-q8"></div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question-block" data-answer="autonomy" id="q9">
+      <span class="question-type">Module 5 — Ethics</span>
+      <h3>9. Which ethical principle concerns respecting a participant's right to make informed decisions about their involvement in research?</h3>
+      <div class="options">
+        <label><input type="radio" name="q9" value="beneficence"> Beneficence</label>
+        <label><input type="radio" name="q9" value="justice"> Justice</label>
+        <label><input type="radio" name="q9" value="non-maleficence"> Non-maleficence</label>
+        <label><input type="radio" name="q9" value="autonomy"> Autonomy</label>
+      </div>
+      <div class="feedback" id="fb-q9"></div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question-block" data-answer="true" id="q10">
+      <span class="question-type">Module 5 — Ethics</span>
+      <h3>10. A lecturer researching their own students creates a power imbalance that could lead to coercion, even if unintentional.</h3>
+      <div class="options">
+        <label><input type="radio" name="q10" value="true"> True</label>
+        <label><input type="radio" name="q10" value="false"> False</label>
+      </div>
+      <div class="feedback" id="fb-q10"></div>
+    </div>
+
+    <button class="btn btn-primary btn-center" id="submit-quiz-btn">Submit Answers</button>
+
+    <!-- Results -->
+    <section id="results-section">
+      <div class="results-card">
+        <div class="score-circle" id="score-circle">0/10</div>
+        <h2 id="results-heading">Your Results</h2>
+        <p id="results-message"></p>
+      </div>
+      <button class="btn btn-primary btn-center" id="retry-btn">Retry Quiz</button>
+    </section>
+
+    <div class="page-nav">
+      <button class="btn btn-secondary" onclick="goToPage(5)">&larr; Back to Capstone</button>
+      <span class="spacer"></span>
+    </div>
+  </section>
 
 </main>
 
 <script>
-  // Toggle case study expandable sections
-  function toggleCase(id) {
-    const el = document.getElementById(id);
-    el.classList.toggle('open');
+  // ---- Page navigation ----
+  const pages = document.querySelectorAll('.page');
+  const progressSteps = document.querySelectorAll('.progress-step');
+  const navButtons = document.querySelectorAll('.module-nav button');
+  let currentPage = 0;
+  const visited = new Set([0]);
+
+  function goToPage(index) {
+    if (index < 0 || index >= pages.length) return;
+
+    // Hide current
+    pages[currentPage].classList.remove('active');
+
+    // Show new
+    currentPage = index;
+    visited.add(index);
+    pages[currentPage].classList.add('active');
+
+    // Update progress bar
+    progressSteps.forEach((step, i) => {
+      step.classList.remove('active', 'completed');
+      if (i === currentPage) step.classList.add('active');
+      else if (visited.has(i)) step.classList.add('completed');
+    });
+
+    // Update nav buttons
+    navButtons.forEach((btn, i) => {
+      btn.classList.toggle('active', i === currentPage);
+    });
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Smooth scrolling for nav links
-  document.querySelectorAll('.module-nav a, a[href="#"]').forEach(link => {
-    link.addEventListener('click', function(e) {
-      const href = this.getAttribute('href');
-      if (href.startsWith('#')) {
-        e.preventDefault();
-        const target = href === '#' ? document.body : document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
+  // Click progress bar steps
+  progressSteps.forEach(step => {
+    step.addEventListener('click', () => {
+      goToPage(parseInt(step.dataset.page));
     });
+  });
+
+  // Click nav buttons
+  navButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      goToPage(parseInt(btn.dataset.page));
+    });
+  });
+
+  // ---- Case study toggle ----
+  function toggleCase(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  // ---- Quiz Logic ----
+  const TOTAL = 10;
+  const PASS_THRESHOLD = 8;
+
+  const correctLabels = {
+    q1:  "Systematic — follows a rigorous, reproducible methodology with PRISMA reporting",
+    q2:  "PICO — Population, Intervention, Comparison, Outcome",
+    q3:  "CONSORT — the reporting standard for RCTs",
+    q4:  "False — external validity refers to generalisability beyond the study. Internal validity is about trust within the study.",
+    q5:  "Effect size (e.g. Cohen's d) — measures practical magnitude",
+    q6:  "ANOVA — used to compare 3 or more group means",
+    q7:  "Qualitative — uses interviews, thematic analysis, and explores meaning",
+    q8:  "Systematic Review / Meta-analysis — the highest level of evidence",
+    q9:  "Autonomy — respect for participants' informed decision-making",
+    q10: "True — dual roles create power imbalances that risk coercion"
+  };
+
+  const resultsSection = document.getElementById("results-section");
+
+  document.getElementById("submit-quiz-btn").addEventListener("click", () => {
+    let score = 0;
+
+    for (let i = 1; i <= TOTAL; i++) {
+      const block = document.getElementById("q" + i);
+      const expected = block.dataset.answer.toLowerCase().trim();
+      const checked = block.querySelector('input[type="radio"]:checked');
+      const userAnswer = checked ? checked.value.toLowerCase().trim() : "";
+      const fb = document.getElementById("fb-q" + i);
+      const isCorrect = userAnswer === expected;
+
+      if (isCorrect) {
+        score++;
+        block.classList.add("correct");
+        block.classList.remove("incorrect");
+        fb.textContent = "Correct!";
+        fb.className = "feedback show correct";
+      } else {
+        block.classList.add("incorrect");
+        block.classList.remove("correct");
+        fb.innerHTML = "Incorrect — " + correctLabels["q" + i];
+        fb.className = "feedback show incorrect";
+      }
+    }
+
+    const circle = document.getElementById("score-circle");
+    circle.textContent = score + "/" + TOTAL;
+    const passed = score >= PASS_THRESHOLD;
+    circle.className = "score-circle " + (passed ? "good" : score >= 5 ? "ok" : "bad");
+
+    document.getElementById("results-heading").textContent = passed ? "Passed!" : "Not Yet Passed";
+
+    const msg = document.getElementById("results-message");
+    if (passed) {
+      msg.textContent = "Congratulations! You scored " + score + "/" + TOTAL + " and have passed the assessment (80% threshold).";
+    } else {
+      msg.textContent = "You scored " + score + "/" + TOTAL + ". You need at least " + PASS_THRESHOLD + "/" + TOTAL + " to pass. Review the modules and try again.";
+    }
+
+    resultsSection.classList.add("visible");
+    resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  document.getElementById("retry-btn").addEventListener("click", () => {
+    for (let i = 1; i <= TOTAL; i++) {
+      const block = document.getElementById("q" + i);
+      block.classList.remove("correct", "incorrect");
+      block.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+      const fb = document.getElementById("fb-q" + i);
+      fb.className = "feedback";
+      fb.textContent = "";
+    }
+    resultsSection.classList.remove("visible");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 </script>
 </body>
