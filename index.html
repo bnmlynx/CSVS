@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduction to Vascular Science</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #1a1a2e;
+    background: #f0f2f5;
+  }
+
+  header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #fff;
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+  header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+  header p { color: #b8c6db; max-width: 600px; margin: 0 auto; }
+
+  main { max-width: 760px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+  /* ---- Content cards ---- */
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .section-number {
+    display: inline-block;
+    background: #0f3460;
+    color: #fff;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 32px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .card h2 { font-size: 1.35rem; margin-bottom: 0.75rem; }
+  .card p { margin-bottom: 0.75rem; color: #333; }
+  .card ul { margin: 0.5rem 0 0.75rem 1.25rem; color: #333; }
+  .card ul li { margin-bottom: 0.35rem; }
+
+  /* ---- Buttons ---- */
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: #0f3460; color: #fff; }
+  .btn-primary:hover { background: #1a4a7a; }
+  .btn-center { display: block; margin: 1.5rem auto 0; }
+
+  /* ---- Quiz section ---- */
+  #quiz-section {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.6s ease, opacity 0.4s ease;
+  }
+  #quiz-section.visible {
+    max-height: 5000px;
+    opacity: 1;
+  }
+
+  .question-block {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 4px solid #0f3460;
+    transition: border-color 0.3s;
+  }
+  .question-block.correct { border-color: #27ae60; }
+  .question-block.incorrect { border-color: #e74c3c; }
+  .question-block h3 { font-size: 1.05rem; margin-bottom: 0.75rem; }
+  .question-type {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: #e8edf3;
+    color: #555;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Radio / text inputs */
+  .options label {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.35rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .options label:hover { background: #f5f7fa; }
+  .options input[type="radio"] { margin-right: 0.5rem; }
+  .text-answer {
+    width: 100%;
+    max-width: 360px;
+    padding: 0.6rem 0.75rem;
+    border: 2px solid #dde1e7;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
+  .text-answer:focus { outline: none; border-color: #0f3460; }
+
+  /* ---- Feedback ---- */
+  .feedback {
+    margin-top: 0.75rem;
+    padding: 0.6rem 0.85rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct { background: #eafaf1; color: #1e8449; }
+  .feedback.incorrect { background: #fdedec; color: #c0392b; }
+
+  /* ---- Results ---- */
+  #results-section {
+    display: none;
+  }
+  #results-section.visible { display: block; }
+
+  .results-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 1.5rem;
+  }
+  .score-circle {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .score-circle.good { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+  .score-circle.ok   { background: linear-gradient(135deg, #f39c12, #f1c40f); }
+  .score-circle.bad  { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+  .results-card p { color: #555; }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 600px) {
+    header { padding: 2rem 1rem; }
+    header h1 { font-size: 1.5rem; }
+    .card, .question-block, .results-card { padding: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Introduction to Vascular Science</h1>
+  <p>Learn the fundamentals of the human vascular system — its structure, function, and common diseases — then test your knowledge with a short quiz.</p>
+</header>
+
+<main>
+  <!-- ===== Learning Material ===== -->
+  <section id="learning-section">
+
+    <div class="card">
+      <span class="section-number">1</span>
+      <h2>Overview of the Vascular System</h2>
+      <p>The vascular system (also called the circulatory system) is the network of blood vessels that transports blood throughout the body. It consists of three main types of vessels: <strong>arteries</strong>, which carry oxygenated blood away from the heart; <strong>veins</strong>, which return deoxygenated blood to the heart; and <strong>capillaries</strong>, the tiny vessels where gas and nutrient exchange occurs at the tissue level.</p>
+      <p>The heart acts as the central pump, driving blood through two circuits — the <strong>pulmonary circulation</strong> (heart to lungs and back) and the <strong>systemic circulation</strong> (heart to the rest of the body and back).</p>
+    </div>
+
+    <div class="card">
+      <span class="section-number">2</span>
+      <h2>Structure of Blood Vessels</h2>
+      <p>Arteries and veins share a common three-layered wall structure:</p>
+      <ul>
+        <li><strong>Tunica intima</strong> — The innermost layer, composed of a single layer of endothelial cells that provides a smooth surface for blood flow.</li>
+        <li><strong>Tunica media</strong> — The middle layer, made of smooth muscle and elastic tissue. It is thicker in arteries than in veins, allowing arteries to withstand higher pressure.</li>
+        <li><strong>Tunica adventitia (externa)</strong> — The outermost layer of connective tissue that anchors the vessel to surrounding structures.</li>
+      </ul>
+      <p>Capillaries are much simpler — their walls are only one endothelial cell thick, which facilitates the diffusion of oxygen, carbon dioxide, and nutrients.</p>
+    </div>
+
+    <div class="card">
+      <span class="section-number">3</span>
+      <h2>Key Concepts in Vascular Physiology</h2>
+      <p>Several important principles govern how blood moves through the vascular system:</p>
+      <ul>
+        <li><strong>Blood pressure</strong> is the force exerted by blood against vessel walls. It is highest in arteries and drops progressively through capillaries and veins.</li>
+        <li><strong>Vasoconstriction</strong> (narrowing) and <strong>vasodilation</strong> (widening) of blood vessels regulate blood flow and pressure, controlled by smooth muscle in the tunica media.</li>
+        <li>Veins contain <strong>one-way valves</strong> that prevent backflow and help return blood to the heart, especially from the lower extremities against gravity.</li>
+        <li>The <strong>aorta</strong> is the largest artery in the body, originating from the left ventricle and distributing oxygenated blood to the systemic circulation.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="section-number">4</span>
+      <h2>Common Vascular Diseases</h2>
+      <p>Vascular diseases affect millions of people worldwide and are a leading cause of morbidity and mortality:</p>
+      <ul>
+        <li><strong>Atherosclerosis</strong> — The build-up of fatty plaques inside arterial walls, narrowing the lumen and reducing blood flow. It is a major risk factor for heart attack and stroke.</li>
+        <li><strong>Deep vein thrombosis (DVT)</strong> — A blood clot that forms in a deep vein, usually in the legs. If the clot dislodges, it can travel to the lungs causing a pulmonary embolism.</li>
+        <li><strong>Peripheral artery disease (PAD)</strong> — Reduced blood flow to the limbs (typically the legs) caused by narrowed arteries, leading to pain, numbness, and in severe cases, tissue death.</li>
+        <li><strong>Aneurysm</strong> — An abnormal bulge in a weakened arterial wall. If it ruptures, particularly in the aorta, it can be life-threatening.</li>
+      </ul>
+    </div>
+
+    <button class="btn btn-primary btn-center" id="start-quiz-btn">Start Quiz</button>
+  </section>
+
+  <!-- ===== Quiz Section ===== -->
+  <section id="quiz-section">
+    <div class="card" style="text-align:center; border-left: 4px solid #0f3460;">
+      <h2>Knowledge Check</h2>
+      <p>Answer the questions below based on the material you just read.</p>
+    </div>
+
+    <!-- Q1: Multiple choice -->
+    <div class="question-block" data-answer="arteries" id="q1">
+      <span class="question-type">Multiple Choice</span>
+      <h3>1. Which type of blood vessel carries oxygenated blood away from the heart?</h3>
+      <div class="options">
+        <label><input type="radio" name="q1" value="veins"> Veins</label>
+        <label><input type="radio" name="q1" value="arteries"> Arteries</label>
+        <label><input type="radio" name="q1" value="capillaries"> Capillaries</label>
+        <label><input type="radio" name="q1" value="venules"> Venules</label>
+      </div>
+      <div class="feedback" id="fb-q1"></div>
+    </div>
+
+    <!-- Q2: Multiple choice -->
+    <div class="question-block" data-answer="tunica media" id="q2">
+      <span class="question-type">Multiple Choice</span>
+      <h3>2. Which layer of a blood vessel wall contains smooth muscle and is thicker in arteries?</h3>
+      <div class="options">
+        <label><input type="radio" name="q2" value="tunica intima"> Tunica intima</label>
+        <label><input type="radio" name="q2" value="tunica media"> Tunica media</label>
+        <label><input type="radio" name="q2" value="tunica adventitia"> Tunica adventitia</label>
+        <label><input type="radio" name="q2" value="endothelium"> Endothelium</label>
+      </div>
+      <div class="feedback" id="fb-q2"></div>
+    </div>
+
+    <!-- Q3: Multiple choice -->
+    <div class="question-block" data-answer="atherosclerosis" id="q3">
+      <span class="question-type">Multiple Choice</span>
+      <h3>3. What condition involves the build-up of fatty plaques inside arterial walls?</h3>
+      <div class="options">
+        <label><input type="radio" name="q3" value="dvt"> Deep vein thrombosis</label>
+        <label><input type="radio" name="q3" value="aneurysm"> Aneurysm</label>
+        <label><input type="radio" name="q3" value="atherosclerosis"> Atherosclerosis</label>
+        <label><input type="radio" name="q3" value="pad"> Peripheral artery disease</label>
+      </div>
+      <div class="feedback" id="fb-q3"></div>
+    </div>
+
+    <!-- Q4: True/False -->
+    <div class="question-block" data-answer="true" id="q4">
+      <span class="question-type">True / False</span>
+      <h3>4. Veins contain one-way valves to prevent the backflow of blood.</h3>
+      <div class="options">
+        <label><input type="radio" name="q4" value="true"> True</label>
+        <label><input type="radio" name="q4" value="false"> False</label>
+      </div>
+      <div class="feedback" id="fb-q4"></div>
+    </div>
+
+    <!-- Q5: True/False -->
+    <div class="question-block" data-answer="false" id="q5">
+      <span class="question-type">True / False</span>
+      <h3>5. Blood pressure is highest in the veins and lowest in the arteries.</h3>
+      <div class="options">
+        <label><input type="radio" name="q5" value="true"> True</label>
+        <label><input type="radio" name="q5" value="false"> False</label>
+      </div>
+      <div class="feedback" id="fb-q5"></div>
+    </div>
+
+    <!-- Q6: Fill-in-the-blank -->
+    <div class="question-block" data-answer="aorta" id="q6">
+      <span class="question-type">Fill in the Blank</span>
+      <h3>6. The __________ is the largest artery in the human body, originating from the left ventricle.</h3>
+      <input type="text" class="text-answer" id="input-q6" placeholder="Type your answer…" autocomplete="off">
+      <div class="feedback" id="fb-q6"></div>
+    </div>
+
+    <button class="btn btn-primary btn-center" id="submit-btn">Submit Answers</button>
+  </section>
+
+  <!-- ===== Results Section ===== -->
+  <section id="results-section">
+    <div class="results-card">
+      <div class="score-circle" id="score-circle">0/6</div>
+      <h2 id="results-heading">Your Results</h2>
+      <p id="results-message"></p>
+    </div>
+    <button class="btn btn-primary btn-center" id="retry-btn">Retry Quiz</button>
+  </section>
+</main>
+
+<script>
+  const TOTAL = 6;
+  const correctLabels = {
+    q1: "Arteries",
+    q2: "Tunica media",
+    q3: "Atherosclerosis",
+    q4: "True",
+    q5: "False — blood pressure is highest in arteries",
+    q6: "Aorta"
+  };
+
+  const quizSection = document.getElementById("quiz-section");
+  const resultsSection = document.getElementById("results-section");
+
+  // ---- Start Quiz ----
+  document.getElementById("start-quiz-btn").addEventListener("click", () => {
+    quizSection.classList.add("visible");
+    quizSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  // ---- Submit ----
+  document.getElementById("submit-btn").addEventListener("click", () => {
+    let score = 0;
+
+    for (let i = 1; i <= TOTAL; i++) {
+      const block = document.getElementById("q" + i);
+      const expected = block.dataset.answer.toLowerCase().trim();
+      let userAnswer = "";
+
+      // Radio or text?
+      const radios = block.querySelectorAll('input[type="radio"]');
+      if (radios.length) {
+        const checked = block.querySelector('input[type="radio"]:checked');
+        userAnswer = checked ? checked.value.toLowerCase().trim() : "";
+      } else {
+        const textInput = block.querySelector(".text-answer");
+        userAnswer = textInput ? textInput.value.toLowerCase().trim() : "";
+      }
+
+      const fb = document.getElementById("fb-q" + i);
+      const isCorrect = userAnswer === expected;
+
+      if (isCorrect) {
+        score++;
+        block.classList.add("correct");
+        block.classList.remove("incorrect");
+        fb.textContent = "Correct!";
+        fb.className = "feedback show correct";
+      } else {
+        block.classList.add("incorrect");
+        block.classList.remove("correct");
+        fb.innerHTML = "Incorrect — the answer is: <strong>" + correctLabels["q" + i] + "</strong>";
+        fb.className = "feedback show incorrect";
+      }
+    }
+
+    // Show results
+    const circle = document.getElementById("score-circle");
+    circle.textContent = score + "/" + TOTAL;
+    circle.className = "score-circle " + (score >= 5 ? "good" : score >= 3 ? "ok" : "bad");
+
+    const msg = document.getElementById("results-message");
+    if (score === TOTAL) {
+      msg.textContent = "Perfect score! You have a strong grasp of vascular science fundamentals.";
+    } else if (score >= 4) {
+      msg.textContent = "Great job! Review the questions you missed and try again.";
+    } else {
+      msg.textContent = "Keep studying — re-read the material above and give it another go.";
+    }
+
+    resultsSection.classList.add("visible");
+    resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  // ---- Retry ----
+  document.getElementById("retry-btn").addEventListener("click", () => {
+    // Reset radios and text inputs
+    quizSection.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    quizSection.querySelectorAll(".text-answer").forEach(t => t.value = "");
+
+    // Clear feedback and border colours
+    for (let i = 1; i <= TOTAL; i++) {
+      const block = document.getElementById("q" + i);
+      block.classList.remove("correct", "incorrect");
+      const fb = document.getElementById("fb-q" + i);
+      fb.className = "feedback";
+      fb.textContent = "";
+    }
+
+    resultsSection.classList.remove("visible");
+    quizSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+</script>
+</body>
+</html>
