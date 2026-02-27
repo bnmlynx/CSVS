@@ -474,15 +474,41 @@
       <div class="case-study-body">
         <div class="case-study-body-inner">
           <p><strong>Scenario:</strong> A postgraduate student presents 40 summarised articles on burnout but provides no synthesis, no defined research question, and no critical evaluation of methodology.</p>
-          <div class="prompt-box">
-            <strong>Activity</strong>
-            <ol>
-              <li>Identify 3 weaknesses in this approach.</li>
-              <li>Rewrite the research question using the PICO framework.</li>
-              <li>Suggest a synthesis structure that moves beyond simple description.</li>
-            </ol>
-            <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+
+          <div class="question-block cs-question" data-answer="no synthesis" id="cs1-q1">
+            <h3>What is the most significant weakness in this student's approach?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs1-q1" value="too many articles"> They included too many articles</label>
+              <label><input type="radio" name="cs1-q1" value="no synthesis"> They summarised without synthesising or critically evaluating</label>
+              <label><input type="radio" name="cs1-q1" value="wrong topic"> Burnout is not a valid research topic</label>
+              <label><input type="radio" name="cs1-q1" value="no database"> They did not use enough databases</label>
+            </div>
+            <div class="feedback" id="fb-cs1-q1"></div>
           </div>
+
+          <div class="question-block cs-question" data-answer="pico" id="cs1-q2">
+            <h3>Which framework would best help this student refine their research question?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs1-q2" value="prisma"> PRISMA</label>
+              <label><input type="radio" name="cs1-q2" value="pico"> PICO</label>
+              <label><input type="radio" name="cs1-q2" value="consort"> CONSORT</label>
+              <label><input type="radio" name="cs1-q2" value="casp"> CASP</label>
+            </div>
+            <div class="feedback" id="fb-cs1-q2"></div>
+          </div>
+
+          <div class="question-block cs-question" data-answer="thematic" id="cs1-q3">
+            <h3>What synthesis approach should the student adopt instead of individual summaries?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs1-q3" value="alphabetical"> Organise articles alphabetically by author</label>
+              <label><input type="radio" name="cs1-q3" value="chronological"> List articles in chronological order</label>
+              <label><input type="radio" name="cs1-q3" value="thematic"> Group findings by theme and compare methodologies across studies</label>
+              <label><input type="radio" name="cs1-q3" value="longest"> Prioritise the longest articles</label>
+            </div>
+            <div class="feedback" id="fb-cs1-q3"></div>
+          </div>
+
+          <button class="btn btn-primary btn-center" onclick="checkCaseStudy('cs1', 3)">Check Answers</button>
         </div>
       </div>
     </div>
@@ -553,15 +579,39 @@
       <div class="case-study-body">
         <div class="case-study-body-inner">
           <p><strong>Scenario:</strong> An RCT reports a significant finding (p = 0.04) with n = 38 participants. There is no power calculation reported, 30% attrition, and the authors make strong clinical claims.</p>
-          <div class="prompt-box">
-            <strong>Interactive Questions</strong>
-            <ol>
-              <li>Is this study likely underpowered? Why does that matter?</li>
-              <li>What types of bias may be introduced by 30% attrition?</li>
-              <li>Are the conclusions justified given these limitations?</li>
-            </ol>
-            <textarea class="reflection-area" placeholder="Write your critical appraisal here..."></textarea>
+
+          <div class="question-block cs-question" data-answer="yes underpowered" id="cs2-q1">
+            <h3>Is this study likely underpowered?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs2-q1" value="yes underpowered"> Yes — with only 38 participants and no power calculation, it likely lacks the sample size to detect a true effect reliably</label>
+              <label><input type="radio" name="cs2-q1" value="no fine"> No — 38 participants is sufficient for most RCTs</label>
+              <label><input type="radio" name="cs2-q1" value="cannot tell"> It is impossible to tell without the raw data</label>
+            </div>
+            <div class="feedback" id="fb-cs2-q1"></div>
           </div>
+
+          <div class="question-block cs-question" data-answer="attrition bias" id="cs2-q2">
+            <h3>What is the primary type of bias introduced by 30% attrition?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs2-q2" value="selection bias"> Selection bias</label>
+              <label><input type="radio" name="cs2-q2" value="attrition bias"> Attrition bias — participants who dropped out may differ systematically from those who remained</label>
+              <label><input type="radio" name="cs2-q2" value="publication bias"> Publication bias</label>
+              <label><input type="radio" name="cs2-q2" value="observer bias"> Observer bias</label>
+            </div>
+            <div class="feedback" id="fb-cs2-q2"></div>
+          </div>
+
+          <div class="question-block cs-question" data-answer="not justified" id="cs2-q3">
+            <h3>Are the authors' strong clinical claims justified?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs2-q3" value="justified"> Yes — p = 0.04 is statistically significant so the claims are valid</label>
+              <label><input type="radio" name="cs2-q3" value="not justified"> No — the small sample, high attrition, and lack of power calculation mean conclusions should be cautious</label>
+              <label><input type="radio" name="cs2-q3" value="partially"> Partially — the claims are valid but should mention limitations</label>
+            </div>
+            <div class="feedback" id="fb-cs2-q3"></div>
+          </div>
+
+          <button class="btn btn-primary btn-center" onclick="checkCaseStudy('cs2', 3)">Check Answers</button>
         </div>
       </div>
     </div>
@@ -636,11 +686,39 @@
       <div class="case-study-body">
         <div class="case-study-body-inner">
           <p><strong>Scenario:</strong> A study reports p = 0.001, Cohen's d = 0.18, and n = 3,000.</p>
-          <div class="prompt-box">
-            <strong>Discussion Prompt</strong>
-            <p>The result is highly statistically significant but the effect size is very small. Should this finding influence policy? Why or why not?</p>
-            <textarea class="reflection-area" placeholder="Write your analysis here..."></textarea>
+
+          <div class="question-block cs-question" data-answer="large sample" id="cs3-q1">
+            <h3>Why is the p-value so small despite a tiny effect size?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs3-q1" value="strong effect"> The intervention has a strong real-world effect</label>
+              <label><input type="radio" name="cs3-q1" value="large sample"> The very large sample size (n = 3,000) inflates statistical significance even for trivial effects</label>
+              <label><input type="radio" name="cs3-q1" value="good design"> The study design was exceptionally rigorous</label>
+            </div>
+            <div class="feedback" id="fb-cs3-q1"></div>
           </div>
+
+          <div class="question-block cs-question" data-answer="small" id="cs3-q2">
+            <h3>A Cohen's d of 0.18 is generally considered:</h3>
+            <div class="options">
+              <label><input type="radio" name="cs3-q2" value="large"> A large effect</label>
+              <label><input type="radio" name="cs3-q2" value="medium"> A medium effect</label>
+              <label><input type="radio" name="cs3-q2" value="small"> A small effect — below the 0.2 threshold for even a "small" effect</label>
+              <label><input type="radio" name="cs3-q2" value="negligible"> Not interpretable without more data</label>
+            </div>
+            <div class="feedback" id="fb-cs3-q2"></div>
+          </div>
+
+          <div class="question-block cs-question" data-answer="probably not" id="cs3-q3">
+            <h3>Should this finding alone drive policy change?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs3-q3" value="yes definitely"> Yes — p = 0.001 is highly significant</label>
+              <label><input type="radio" name="cs3-q3" value="probably not"> Probably not — the effect is too small to have practical or clinical significance despite statistical significance</label>
+              <label><input type="radio" name="cs3-q3" value="always"> Any statistically significant result should inform policy</label>
+            </div>
+            <div class="feedback" id="fb-cs3-q3"></div>
+          </div>
+
+          <button class="btn btn-primary btn-center" onclick="checkCaseStudy('cs3', 3)">Check Answers</button>
         </div>
       </div>
     </div>
@@ -707,15 +785,40 @@
       <div class="case-study-body">
         <div class="case-study-body-inner">
           <p><strong>Scenario:</strong> A researcher asks: <em>"How do first-generation postgraduates experience imposter syndrome?"</em></p>
-          <div class="prompt-box">
-            <strong>Interactive Task</strong>
-            <ol>
-              <li>Select an appropriate methodology and justify your choice.</li>
-              <li>Justify the epistemological position (e.g. interpretivist, positivist).</li>
-              <li>Propose a sampling strategy and explain why it fits.</li>
-            </ol>
-            <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+
+          <div class="question-block cs-question" data-answer="qualitative" id="cs4-q1">
+            <h3>Which methodology is most appropriate for this research question?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs4-q1" value="rct"> Randomised controlled trial</label>
+              <label><input type="radio" name="cs4-q1" value="quantitative survey"> Large-scale quantitative survey</label>
+              <label><input type="radio" name="cs4-q1" value="qualitative"> Qualitative — using interviews or focus groups to explore lived experiences</label>
+              <label><input type="radio" name="cs4-q1" value="meta-analysis"> Meta-analysis of existing studies</label>
+            </div>
+            <div class="feedback" id="fb-cs4-q1"></div>
           </div>
+
+          <div class="question-block cs-question" data-answer="interpretivist" id="cs4-q2">
+            <h3>Which epistemological position best aligns with exploring subjective experiences?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs4-q2" value="positivist"> Positivist — objective, measurable truth</label>
+              <label><input type="radio" name="cs4-q2" value="interpretivist"> Interpretivist — understanding is constructed through individual experience and meaning-making</label>
+              <label><input type="radio" name="cs4-q2" value="pragmatist"> Pragmatist — whatever method works best</label>
+            </div>
+            <div class="feedback" id="fb-cs4-q2"></div>
+          </div>
+
+          <div class="question-block cs-question" data-answer="purposive" id="cs4-q3">
+            <h3>Which sampling strategy is most suitable for this study?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs4-q3" value="random"> Simple random sampling from the entire university</label>
+              <label><input type="radio" name="cs4-q3" value="purposive"> Purposive sampling — deliberately selecting first-generation postgraduates who can speak to the experience</label>
+              <label><input type="radio" name="cs4-q3" value="convenience"> Convenience sampling — whoever is available</label>
+              <label><input type="radio" name="cs4-q3" value="stratified"> Stratified random sampling</label>
+            </div>
+            <div class="feedback" id="fb-cs4-q3"></div>
+          </div>
+
+          <button class="btn btn-primary btn-center" onclick="checkCaseStudy('cs4', 3)">Check Answers</button>
         </div>
       </div>
     </div>
@@ -782,15 +885,40 @@
       <div class="case-study-body">
         <div class="case-study-body-inner">
           <p><strong>Scenario:</strong> A lecturer interviews their own students about academic anxiety as part of their postgraduate research project.</p>
-          <div class="prompt-box">
-            <strong>Interactive Questions</strong>
-            <ol>
-              <li>What ethical risks exist in this scenario?</li>
-              <li>How could coercion occur, even unintentionally?</li>
-              <li>What safeguards would you implement to mitigate these risks?</li>
-            </ol>
-            <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+
+          <div class="question-block cs-question" data-answer="power imbalance" id="cs5-q1">
+            <h3>What is the primary ethical risk in this scenario?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs5-q1" value="too small"> The sample size would be too small</label>
+              <label><input type="radio" name="cs5-q1" value="power imbalance"> The power imbalance between lecturer and student compromises voluntary participation</label>
+              <label><input type="radio" name="cs5-q1" value="topic sensitive"> Academic anxiety is too sensitive a topic to research</label>
+              <label><input type="radio" name="cs5-q1" value="no risk"> There is no significant ethical risk</label>
+            </div>
+            <div class="feedback" id="fb-cs5-q1"></div>
           </div>
+
+          <div class="question-block cs-question" data-answer="fear of consequences" id="cs5-q2">
+            <h3>How could coercion occur, even if unintentional?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs5-q2" value="fear of consequences"> Students may fear that declining to participate could affect their grades or relationship with the lecturer</label>
+              <label><input type="radio" name="cs5-q2" value="forced signup"> The lecturer would force students to sign up</label>
+              <label><input type="radio" name="cs5-q2" value="payment"> Students would be paid too much to refuse</label>
+            </div>
+            <div class="feedback" id="fb-cs5-q2"></div>
+          </div>
+
+          <div class="question-block cs-question" data-answer="independent recruiter" id="cs5-q3">
+            <h3>Which safeguard would best mitigate the ethical risks?</h3>
+            <div class="options">
+              <label><input type="radio" name="cs5-q3" value="anonymous survey"> Switch to an anonymous online survey</label>
+              <label><input type="radio" name="cs5-q3" value="independent recruiter"> Use an independent person to recruit participants and ensure the lecturer does not know who participated until after grades are finalised</label>
+              <label><input type="radio" name="cs5-q3" value="verbal consent"> Simply ask for verbal consent before the interview</label>
+              <label><input type="radio" name="cs5-q3" value="extra credit"> Offer extra credit to encourage participation</label>
+            </div>
+            <div class="feedback" id="fb-cs5-q3"></div>
+          </div>
+
+          <button class="btn btn-primary btn-center" onclick="checkCaseStudy('cs5', 3)">Check Answers</button>
         </div>
       </div>
     </div>
@@ -1051,6 +1179,37 @@
   // ---- Case study toggle ----
   function toggleCase(id) {
     document.getElementById(id).classList.toggle('open');
+  }
+
+  // ---- Case study multiple choice checking ----
+  function checkCaseStudy(csId, count) {
+    for (let i = 1; i <= count; i++) {
+      const qId = csId + "-q" + i;
+      const block = document.getElementById(qId);
+      const expected = block.dataset.answer.toLowerCase().trim();
+      const checked = block.querySelector('input[type="radio"]:checked');
+      const userAnswer = checked ? checked.value.toLowerCase().trim() : "";
+      const fb = document.getElementById("fb-" + qId);
+
+      if (!userAnswer) {
+        fb.textContent = "Please select an answer.";
+        fb.className = "feedback show incorrect";
+        block.classList.remove("correct", "incorrect");
+        continue;
+      }
+
+      if (userAnswer === expected) {
+        block.classList.add("correct");
+        block.classList.remove("incorrect");
+        fb.textContent = "Correct!";
+        fb.className = "feedback show correct";
+      } else {
+        block.classList.add("incorrect");
+        block.classList.remove("correct");
+        fb.textContent = "Incorrect — try again or review the module content above.";
+        fb.className = "feedback show incorrect";
+      }
+    }
   }
 
   // ---- Quiz Logic ----
