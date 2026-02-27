@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Introduction to Vascular Science</title>
+<title>Postgraduate Research Design &amp; Critical Appraisal</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -21,9 +21,31 @@
     text-align: center;
   }
   header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-  header p { color: #b8c6db; max-width: 600px; margin: 0 auto; }
+  header p { color: #b8c6db; max-width: 650px; margin: 0 auto; }
 
-  main { max-width: 760px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+  main { max-width: 800px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+  /* ---- Navigation ---- */
+  .module-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+  }
+  .module-nav a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #fff;
+    color: #0f3460;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    transition: background 0.2s, color 0.2s;
+  }
+  .module-nav a:hover { background: #0f3460; color: #fff; }
 
   /* ---- Content cards ---- */
   .card {
@@ -34,6 +56,26 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
 
+  .module-header {
+    background: linear-gradient(135deg, #0f3460, #1a4a7a);
+    color: #fff;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .module-header h2 { font-size: 1.5rem; margin: 0; }
+  .module-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: rgba(255,255,255,0.2);
+    padding: 2px 10px;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+
   .section-number {
     display: inline-block;
     background: #0f3460;
@@ -42,15 +84,108 @@
     border-radius: 50%;
     text-align: center;
     line-height: 32px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
   }
 
-  .card h2 { font-size: 1.35rem; margin-bottom: 0.75rem; }
+  .card h3 { font-size: 1.2rem; margin-bottom: 0.75rem; }
   .card p { margin-bottom: 0.75rem; color: #333; }
   .card ul { margin: 0.5rem 0 0.75rem 1.25rem; color: #333; }
   .card ul li { margin-bottom: 0.35rem; }
+  .card ol { margin: 0.5rem 0 0.75rem 1.25rem; color: #333; }
+  .card ol li { margin-bottom: 0.35rem; }
+
+  /* ---- Tables ---- */
+  .card table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.95rem;
+  }
+  .card table th, .card table td {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #dde1e7;
+    text-align: left;
+  }
+  .card table th {
+    background: #f5f7fa;
+    font-weight: 600;
+  }
+
+  /* ---- Case study expandable ---- */
+  .case-study {
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 4px solid #e67e22;
+    overflow: hidden;
+  }
+  .case-study-header {
+    padding: 1.25rem 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+  }
+  .case-study-header:hover { background: #fdf6ee; }
+  .case-study-header h3 {
+    font-size: 1.1rem;
+    margin: 0;
+    color: #e67e22;
+  }
+  .case-study-toggle {
+    font-size: 1.2rem;
+    color: #e67e22;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+  .case-study.open .case-study-toggle { transform: rotate(180deg); }
+  .case-study-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .case-study.open .case-study-body {
+    max-height: 2000px;
+  }
+  .case-study-body-inner {
+    padding: 0 2rem 1.5rem;
+  }
+  .case-study-body-inner p { margin-bottom: 0.75rem; color: #333; }
+  .case-study-body-inner ul { margin: 0.5rem 0 0.75rem 1.25rem; color: #333; }
+  .case-study-body-inner ul li { margin-bottom: 0.35rem; }
+  .case-study-body-inner ol { margin: 0.5rem 0 0.75rem 1.25rem; color: #333; }
+  .case-study-body-inner ol li { margin-bottom: 0.35rem; }
+
+  /* ---- Interactive prompt ---- */
+  .prompt-box {
+    background: #eef4fb;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 0.75rem 0;
+    border-left: 3px solid #0f3460;
+  }
+  .prompt-box strong { color: #0f3460; }
+  .prompt-box p { margin-bottom: 0.5rem; color: #333; }
+
+  /* ---- Text area for reflection ---- */
+  .reflection-area {
+    width: 100%;
+    min-height: 80px;
+    padding: 0.6rem 0.75rem;
+    border: 2px solid #dde1e7;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.2s;
+    margin-top: 0.5rem;
+  }
+  .reflection-area:focus { outline: none; border-color: #0f3460; }
 
   /* ---- Buttons ---- */
   .btn {
@@ -62,37 +197,28 @@
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
   }
   .btn:active { transform: scale(0.97); }
   .btn-primary { background: #0f3460; color: #fff; }
   .btn-primary:hover { background: #1a4a7a; }
-  .btn-center { display: block; margin: 1.5rem auto 2rem; }
+  .btn-center { display: block; margin: 1.5rem auto 2rem; text-align: center; }
 
-  /* ---- Quiz section ---- */
-  #quiz-section {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.6s ease, opacity 0.4s ease;
-  }
-  #quiz-section.visible {
-    max-height: 5000px;
-    opacity: 1;
-  }
-
-  .question-block {
-    background: #fff;
+  /* ---- Capstone ---- */
+  .capstone-card {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+    color: #fff;
     border-radius: 12px;
-    padding: 1.5rem 2rem;
-    margin-bottom: 1.25rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    border-left: 4px solid #0f3460;
-    transition: border-color 0.3s;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
   }
-  .question-block.correct { border-color: #27ae60; }
-  .question-block.incorrect { border-color: #e74c3c; }
-  .question-block h3 { font-size: 1.05rem; margin-bottom: 0.75rem; }
-  .question-type {
+  .capstone-card h3 { color: #fff; margin-bottom: 0.75rem; font-size: 1.3rem; }
+  .capstone-card p { color: #b8c6db; margin-bottom: 0.75rem; }
+  .capstone-card ul { margin: 0.5rem 0 0.75rem 1.25rem; color: #b8c6db; }
+  .capstone-card ul li { margin-bottom: 0.35rem; }
+
+  /* ---- Tag ---- */
+  .tag {
     display: inline-block;
     font-size: 0.7rem;
     text-transform: uppercase;
@@ -104,317 +230,459 @@
     margin-bottom: 0.5rem;
   }
 
-  /* Radio / text inputs */
-  .options label {
-    display: block;
-    padding: 0.5rem 0.75rem;
-    margin-bottom: 0.35rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-  .options label:hover { background: #f5f7fa; }
-  .options input[type="radio"] { margin-right: 0.5rem; }
-  .text-answer {
-    width: 100%;
-    max-width: 360px;
-    padding: 0.6rem 0.75rem;
-    border: 2px solid #dde1e7;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border-color 0.2s;
-  }
-  .text-answer:focus { outline: none; border-color: #0f3460; }
-
-  /* ---- Feedback ---- */
-  .feedback {
-    margin-top: 0.75rem;
-    padding: 0.6rem 0.85rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    display: none;
-  }
-  .feedback.show { display: block; }
-  .feedback.correct { background: #eafaf1; color: #1e8449; }
-  .feedback.incorrect { background: #fdedec; color: #c0392b; }
-
-  /* ---- Results ---- */
-  #results-section {
-    display: none;
-  }
-  #results-section.visible { display: block; }
-
-  .results-card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    margin-bottom: 1.5rem;
-  }
-  .score-circle {
-    width: 120px; height: 120px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #fff;
-  }
-  .score-circle.good { background: linear-gradient(135deg, #27ae60, #2ecc71); }
-  .score-circle.ok   { background: linear-gradient(135deg, #f39c12, #f1c40f); }
-  .score-circle.bad  { background: linear-gradient(135deg, #e74c3c, #c0392b); }
-  .results-card p { color: #555; }
-
   /* ---- Responsive ---- */
   @media (max-width: 600px) {
     header { padding: 2rem 1rem; }
     header h1 { font-size: 1.5rem; }
-    .card, .question-block, .results-card { padding: 1.25rem; }
+    .card, .case-study, .capstone-card { padding: 1.25rem; }
+    .case-study-header { padding: 1rem 1.25rem; }
+    .case-study-body-inner { padding: 0 1.25rem 1.25rem; }
+    .module-nav a { font-size: 0.75rem; padding: 0.4rem 0.75rem; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Introduction to Vascular Science</h1>
-  <p>Learn the fundamentals of the human vascular system — its structure, function, and common diseases — then test your knowledge with a short quiz.</p>
+  <h1>Postgraduate Research Design &amp; Critical Appraisal</h1>
+  <p>An advanced learning module supporting postgraduate students in designing rigorous research, conducting systematic literature reviews, critically appraising published work, applying statistical reasoning, and navigating ethical approval processes.</p>
 </header>
 
 <main>
-  <!-- ===== Learning Material ===== -->
-  <section id="learning-section">
 
-    <div class="card">
-      <span class="section-number">1</span>
-      <h2>Overview of the Vascular System</h2>
-      <p>The vascular system (also called the circulatory system) is the network of blood vessels that transports blood throughout the body. It consists of three main types of vessels: <strong>arteries</strong>, which carry oxygenated blood away from the heart; <strong>veins</strong>, which return deoxygenated blood to the heart; and <strong>capillaries</strong>, the tiny vessels where gas and nutrient exchange occurs at the tissue level.</p>
-      <p>The heart acts as the central pump, driving blood through two circuits — the <strong>pulmonary circulation</strong> (heart to lungs and back) and the <strong>systemic circulation</strong> (heart to the rest of the body and back).</p>
+  <!-- ===== Module Navigation ===== -->
+  <nav class="module-nav">
+    <a href="#module-1">1. Literature Review</a>
+    <a href="#module-2">2. Critical Appraisal</a>
+    <a href="#module-3">3. Statistics</a>
+    <a href="#module-4">4. Methodologies</a>
+    <a href="#module-5">5. Ethics</a>
+    <a href="#capstone">Capstone</a>
+  </nav>
+
+  <!-- ========================================================= -->
+  <!-- MODULE 1: Conducting a Literature Review                   -->
+  <!-- ========================================================= -->
+  <div class="module-header" id="module-1">
+    <span class="module-label">Module 1</span>
+    <h2>Conducting a Literature Review</h2>
+  </div>
+
+  <div class="card">
+    <span class="section-number">1.1</span>
+    <h3>What Is a Literature Review?</h3>
+    <p>A literature review is:</p>
+    <ul>
+      <li>A <strong>systematic and reproducible</strong> search of the existing evidence base</li>
+      <li>A <strong>critical evaluation</strong> of sources — not just a summary</li>
+      <li>A <strong>thematic synthesis</strong> that identifies patterns and gaps</li>
+      <li>A <strong>justification</strong> for your own research question</li>
+    </ul>
+    <p><strong>Types of literature review:</strong></p>
+    <ul>
+      <li><strong>Narrative</strong> — Broad overview, less structured</li>
+      <li><strong>Systematic</strong> — Rigorous, reproducible methodology following protocols such as <strong>PRISMA</strong></li>
+      <li><strong>Scoping</strong> — Maps the extent and nature of evidence on a topic</li>
+      <li><strong>Meta-analysis</strong> — Statistical combination of results from multiple studies</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="section-number">1.2</span>
+    <h3>Developing a Research Question</h3>
+    <p>Use established frameworks to sharpen your question:</p>
+    <ul>
+      <li><strong>PICO</strong> — Population, Intervention, Comparison, Outcome</li>
+      <li><strong>SPIDER</strong> — Sample, Phenomenon of Interest, Design, Evaluation, Research type</li>
+      <li><strong>FINER</strong> — Feasible, Interesting, Novel, Ethical, Relevant</li>
+    </ul>
+    <div class="prompt-box">
+      <strong>Interactive Prompt</strong>
+      <p>Refine this vague question into a focused, researchable question:</p>
+      <p><em>"Does stress affect students?"</em></p>
+      <textarea class="reflection-area" placeholder="Write your refined research question here..."></textarea>
     </div>
+  </div>
 
-    <div class="card">
-      <span class="section-number">2</span>
-      <h2>Structure of Blood Vessels</h2>
-      <p>Arteries and veins share a common three-layered wall structure:</p>
-      <ul>
-        <li><strong>Tunica intima</strong> — The innermost layer, composed of a single layer of endothelial cells that provides a smooth surface for blood flow.</li>
-        <li><strong>Tunica media</strong> — The middle layer, made of smooth muscle and elastic tissue. It is thicker in arteries than in veins, allowing arteries to withstand higher pressure.</li>
-        <li><strong>Tunica adventitia (externa)</strong> — The outermost layer of connective tissue that anchors the vessel to surrounding structures.</li>
-      </ul>
-      <p>Capillaries are much simpler — their walls are only one endothelial cell thick, which facilitates the diffusion of oxygen, carbon dioxide, and nutrients.</p>
+  <div class="card">
+    <span class="section-number">1.3</span>
+    <h3>Advanced Search Strategy</h3>
+    <p>A rigorous search strategy should include:</p>
+    <ul>
+      <li><strong>Boolean operators</strong> — AND, OR, NOT to combine terms</li>
+      <li><strong>MeSH terms</strong> — Controlled vocabulary for medical/health databases</li>
+      <li><strong>Citation chaining</strong> — Following references forwards and backwards</li>
+      <li><strong>Grey literature</strong> — Conference proceedings, theses, policy documents</li>
+      <li><strong>Documentation</strong> — Full recording of search strings, databases, dates, and filters</li>
+    </ul>
+    <div class="prompt-box">
+      <strong>Suggested Template: Search Strategy Log</strong>
+      <p>For each search, record: database name, date, exact search string, filters applied, and number of results returned.</p>
     </div>
+  </div>
 
-    <div class="card">
-      <span class="section-number">3</span>
-      <h2>Key Concepts in Vascular Physiology</h2>
-      <p>Several important principles govern how blood moves through the vascular system:</p>
-      <ul>
-        <li><strong>Blood pressure</strong> is the force exerted by blood against vessel walls. It is highest in arteries and drops progressively through capillaries and veins.</li>
-        <li><strong>Vasoconstriction</strong> (narrowing) and <strong>vasodilation</strong> (widening) of blood vessels regulate blood flow and pressure, controlled by smooth muscle in the tunica media.</li>
-        <li>Veins contain <strong>one-way valves</strong> that prevent backflow and help return blood to the heart, especially from the lower extremities against gravity.</li>
-        <li>The <strong>aorta</strong> is the largest artery in the body, originating from the left ventricle and distributing oxygenated blood to the systemic circulation.</li>
-      </ul>
+  <div class="card">
+    <span class="section-number">1.4</span>
+    <h3>Synthesis at Postgraduate Level</h3>
+    <p>Move beyond descriptive summary to analytical synthesis:</p>
+    <ul>
+      <li><strong>Thematic mapping</strong> — Group findings by theme, not by individual study</li>
+      <li><strong>Methodological comparison</strong> — Compare strengths and weaknesses across studies</li>
+      <li><strong>Gap justification</strong> — Clearly articulate what remains unknown</li>
+      <li><strong>Theoretical tensions</strong> — Identify conflicting frameworks or findings</li>
+    </ul>
+  </div>
+
+  <!-- Case Study 1 -->
+  <div class="case-study" id="cs1">
+    <div class="case-study-header" onclick="toggleCase('cs1')">
+      <h3>Case Study 1: Weak Literature Review</h3>
+      <span class="case-study-toggle">&#9660;</span>
     </div>
-
-    <div class="card">
-      <span class="section-number">4</span>
-      <h2>Common Vascular Diseases</h2>
-      <p>Vascular diseases affect millions of people worldwide and are a leading cause of morbidity and mortality:</p>
-      <ul>
-        <li><strong>Atherosclerosis</strong> — The build-up of fatty plaques inside arterial walls, narrowing the lumen and reducing blood flow. It is a major risk factor for heart attack and stroke.</li>
-        <li><strong>Deep vein thrombosis (DVT)</strong> — A blood clot that forms in a deep vein, usually in the legs. If the clot dislodges, it can travel to the lungs causing a pulmonary embolism.</li>
-        <li><strong>Peripheral artery disease (PAD)</strong> — Reduced blood flow to the limbs (typically the legs) caused by narrowed arteries, leading to pain, numbness, and in severe cases, tissue death.</li>
-        <li><strong>Aneurysm</strong> — An abnormal bulge in a weakened arterial wall. If it ruptures, particularly in the aorta, it can be life-threatening.</li>
-      </ul>
-    </div>
-
-    <button class="btn btn-primary btn-center" id="start-quiz-btn">Start Quiz</button>
-  </section>
-
-  <!-- ===== Quiz Section ===== -->
-  <section id="quiz-section">
-    <div class="card" style="text-align:center; border-left: 4px solid #0f3460;">
-      <h2>Knowledge Check</h2>
-      <p>Answer the questions below based on the material you just read.</p>
-    </div>
-
-    <!-- Q1: Multiple choice -->
-    <div class="question-block" data-answer="arteries" id="q1">
-      <span class="question-type">Multiple Choice</span>
-      <h3>1. Which type of blood vessel carries oxygenated blood away from the heart?</h3>
-      <div class="options">
-        <label><input type="radio" name="q1" value="veins"> Veins</label>
-        <label><input type="radio" name="q1" value="arteries"> Arteries</label>
-        <label><input type="radio" name="q1" value="capillaries"> Capillaries</label>
-        <label><input type="radio" name="q1" value="venules"> Venules</label>
+    <div class="case-study-body">
+      <div class="case-study-body-inner">
+        <p><strong>Scenario:</strong> A postgraduate student presents 40 summarised articles on burnout but provides no synthesis, no defined research question, and no critical evaluation of methodology.</p>
+        <div class="prompt-box">
+          <strong>Activity</strong>
+          <ol>
+            <li>Identify 3 weaknesses in this approach.</li>
+            <li>Rewrite the research question using the PICO framework.</li>
+            <li>Suggest a synthesis structure that moves beyond simple description.</li>
+          </ol>
+          <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+        </div>
       </div>
-      <div class="feedback" id="fb-q1"></div>
     </div>
+  </div>
 
-    <!-- Q2: Multiple choice -->
-    <div class="question-block" data-answer="tunica media" id="q2">
-      <span class="question-type">Multiple Choice</span>
-      <h3>2. Which layer of a blood vessel wall contains smooth muscle and is thicker in arteries?</h3>
-      <div class="options">
-        <label><input type="radio" name="q2" value="tunica intima"> Tunica intima</label>
-        <label><input type="radio" name="q2" value="tunica media"> Tunica media</label>
-        <label><input type="radio" name="q2" value="tunica adventitia"> Tunica adventitia</label>
-        <label><input type="radio" name="q2" value="endothelium"> Endothelium</label>
+  <!-- ========================================================= -->
+  <!-- MODULE 2: Critical Appraisal                               -->
+  <!-- ========================================================= -->
+  <div class="module-header" id="module-2">
+    <span class="module-label">Module 2</span>
+    <h2>Critical Appraisal</h2>
+  </div>
+
+  <div class="card">
+    <span class="section-number">2.1</span>
+    <h3>Appraisal Frameworks</h3>
+    <p>Use established tools to systematically evaluate research quality:</p>
+    <ul>
+      <li><strong>CASP</strong> (Critical Appraisal Skills Programme) — Checklists for different study types</li>
+      <li><strong>Joanna Briggs Institute</strong> — Standardised tools for various methodologies</li>
+      <li><strong>CONSORT</strong> — Specific reporting guidelines for randomised controlled trials (RCTs)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="section-number">2.2</span>
+    <h3>Validity</h3>
+    <p><strong>Internal Validity</strong> — Can we trust the results within the study?</p>
+    <ul>
+      <li><strong>Bias</strong> — Selection, measurement, attrition, reporting bias</li>
+      <li><strong>Confounding</strong> — Unmeasured variables influencing outcomes</li>
+      <li><strong>Randomisation</strong> — Were groups allocated fairly?</li>
+    </ul>
+    <p><strong>External Validity</strong> — Can findings be applied beyond the study?</p>
+    <ul>
+      <li><strong>Generalisability</strong> — Does the sample represent the wider population?</li>
+      <li><strong>Population relevance</strong> — Are inclusion/exclusion criteria appropriate?</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="section-number">2.3</span>
+    <h3>Advanced Critique</h3>
+    <p>Postgraduate-level critique should go beyond basic checklists to assess:</p>
+    <ul>
+      <li><strong>Ontological coherence</strong> (qualitative) — Does the methodology align with the philosophical position?</li>
+      <li><strong>Statistical assumptions</strong> — Were tests used appropriately for the data?</li>
+      <li><strong>Missing data handling</strong> — How were dropouts, non-responses, and incomplete data treated?</li>
+      <li><strong>Funding bias</strong> — Could the funding source influence findings?</li>
+      <li><strong>Reproducibility</strong> — Could another researcher replicate this study?</li>
+      <li><strong>Transparency</strong> — Were protocols pre-registered? Is data available?</li>
+    </ul>
+  </div>
+
+  <!-- Case Study 2 -->
+  <div class="case-study" id="cs2">
+    <div class="case-study-header" onclick="toggleCase('cs2')">
+      <h3>Case Study 2: Questionable RCT</h3>
+      <span class="case-study-toggle">&#9660;</span>
+    </div>
+    <div class="case-study-body">
+      <div class="case-study-body-inner">
+        <p><strong>Scenario:</strong> An RCT reports a significant finding (p = 0.04) with n = 38 participants. There is no power calculation reported, 30% attrition, and the authors make strong clinical claims.</p>
+        <div class="prompt-box">
+          <strong>Interactive Questions</strong>
+          <ol>
+            <li>Is this study likely underpowered? Why does that matter?</li>
+            <li>What types of bias may be introduced by 30% attrition?</li>
+            <li>Are the conclusions justified given these limitations?</li>
+          </ol>
+          <textarea class="reflection-area" placeholder="Write your critical appraisal here..."></textarea>
+        </div>
       </div>
-      <div class="feedback" id="fb-q2"></div>
     </div>
+  </div>
 
-    <!-- Q3: Multiple choice -->
-    <div class="question-block" data-answer="atherosclerosis" id="q3">
-      <span class="question-type">Multiple Choice</span>
-      <h3>3. What condition involves the build-up of fatty plaques inside arterial walls?</h3>
-      <div class="options">
-        <label><input type="radio" name="q3" value="dvt"> Deep vein thrombosis</label>
-        <label><input type="radio" name="q3" value="aneurysm"> Aneurysm</label>
-        <label><input type="radio" name="q3" value="atherosclerosis"> Atherosclerosis</label>
-        <label><input type="radio" name="q3" value="pad"> Peripheral artery disease</label>
+  <!-- ========================================================= -->
+  <!-- MODULE 3: Statistics for Researchers                       -->
+  <!-- ========================================================= -->
+  <div class="module-header" id="module-3">
+    <span class="module-label">Module 3</span>
+    <h2>Statistics for Researchers</h2>
+  </div>
+
+  <div class="card">
+    <span class="section-number">3.1</span>
+    <h3>Descriptive vs Inferential Statistics</h3>
+    <p><strong>Descriptive statistics</strong> summarise your data:</p>
+    <ul>
+      <li><strong>Mean</strong> — The average value</li>
+      <li><strong>Median</strong> — The middle value in ordered data</li>
+      <li><strong>Standard deviation</strong> — How spread out values are from the mean</li>
+    </ul>
+    <p><strong>Inferential statistics</strong> draw conclusions beyond your sample:</p>
+    <ul>
+      <li><strong>p-value</strong> — The probability of observing your results if the null hypothesis is true</li>
+      <li><strong>Confidence intervals</strong> — A range of plausible values for the true effect</li>
+      <li><strong>Hypothesis testing</strong> — Formal process of accepting or rejecting the null hypothesis</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="section-number">3.2</span>
+    <h3>Beyond p &lt; 0.05</h3>
+    <p>Statistical significance alone is not enough. Consider:</p>
+    <ul>
+      <li><strong>Effect size</strong> (e.g. Cohen's d) — How large is the effect in practical terms?</li>
+      <li><strong>Confidence intervals</strong> — How precise is the estimate?</li>
+      <li><strong>Clinical/practical significance</strong> — Does the effect matter in the real world?</li>
+      <li><strong>Sample size influence</strong> — Very large samples can produce statistically significant but trivially small effects</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="section-number">3.3</span>
+    <h3>Choosing Statistical Tests</h3>
+    <table>
+      <thead>
+        <tr><th>Scenario</th><th>Suggested Test</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Compare 2 means</td><td>t-test</td></tr>
+        <tr><td>Compare 3+ means</td><td>ANOVA</td></tr>
+        <tr><td>Categorical association</td><td>Chi-square</td></tr>
+        <tr><td>Prediction</td><td>Regression</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Case Study 3 -->
+  <div class="case-study" id="cs3">
+    <div class="case-study-header" onclick="toggleCase('cs3')">
+      <h3>Case Study 3: Interpreting Significance</h3>
+      <span class="case-study-toggle">&#9660;</span>
+    </div>
+    <div class="case-study-body">
+      <div class="case-study-body-inner">
+        <p><strong>Scenario:</strong> A study reports p = 0.001, Cohen's d = 0.18, and n = 3,000.</p>
+        <div class="prompt-box">
+          <strong>Discussion Prompt</strong>
+          <p>The result is highly statistically significant but the effect size is very small. Should this finding influence policy? Why or why not?</p>
+          <textarea class="reflection-area" placeholder="Write your analysis here..."></textarea>
+        </div>
       </div>
-      <div class="feedback" id="fb-q3"></div>
     </div>
+  </div>
 
-    <!-- Q4: True/False -->
-    <div class="question-block" data-answer="true" id="q4">
-      <span class="question-type">True / False</span>
-      <h3>4. Veins contain one-way valves to prevent the backflow of blood.</h3>
-      <div class="options">
-        <label><input type="radio" name="q4" value="true"> True</label>
-        <label><input type="radio" name="q4" value="false"> False</label>
+  <!-- ========================================================= -->
+  <!-- MODULE 4: Research Methodologies                           -->
+  <!-- ========================================================= -->
+  <div class="module-header" id="module-4">
+    <span class="module-label">Module 4</span>
+    <h2>Research Methodologies</h2>
+  </div>
+
+  <div class="card">
+    <span class="section-number">4.1</span>
+    <h3>Quantitative Research</h3>
+    <p>Characteristics of quantitative approaches:</p>
+    <ul>
+      <li><strong>Hypothesis testing</strong> — Starts with a testable prediction</li>
+      <li><strong>Structured design</strong> — Predetermined variables and procedures</li>
+      <li><strong>Large samples</strong> — Aims for statistical power and generalisability</li>
+      <li><strong>Causality</strong> — Experimental designs can establish cause and effect</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="section-number">4.2</span>
+    <h3>Qualitative Research</h3>
+    <p>Characteristics of qualitative approaches:</p>
+    <ul>
+      <li><strong>Meaning exploration</strong> — Seeks to understand experiences and perspectives</li>
+      <li><strong>Interviews and focus groups</strong> — In-depth data collection methods</li>
+      <li><strong>Thematic analysis</strong> — Identifying patterns and themes in the data</li>
+      <li><strong>Reflexivity</strong> — The researcher acknowledges their influence on the research</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="section-number">4.3</span>
+    <h3>Study Design Hierarchy</h3>
+    <p>The hierarchy of evidence (from strongest to weakest for questions of effectiveness):</p>
+    <ol>
+      <li><strong>Systematic Review / Meta-analysis</strong></li>
+      <li><strong>Randomised Controlled Trial (RCT)</strong></li>
+      <li><strong>Cohort Study</strong></li>
+      <li><strong>Case-Control Study</strong></li>
+      <li><strong>Cross-Sectional Study</strong></li>
+    </ol>
+  </div>
+
+  <!-- Case Study 4 -->
+  <div class="case-study" id="cs4">
+    <div class="case-study-header" onclick="toggleCase('cs4')">
+      <h3>Case Study 4: Design Selection</h3>
+      <span class="case-study-toggle">&#9660;</span>
+    </div>
+    <div class="case-study-body">
+      <div class="case-study-body-inner">
+        <p><strong>Scenario:</strong> A researcher asks: <em>"How do first-generation postgraduates experience imposter syndrome?"</em></p>
+        <div class="prompt-box">
+          <strong>Interactive Task</strong>
+          <ol>
+            <li>Select an appropriate methodology and justify your choice.</li>
+            <li>Justify the epistemological position (e.g. interpretivist, positivist).</li>
+            <li>Propose a sampling strategy and explain why it fits.</li>
+          </ol>
+          <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+        </div>
       </div>
-      <div class="feedback" id="fb-q4"></div>
     </div>
+  </div>
 
-    <!-- Q5: True/False -->
-    <div class="question-block" data-answer="false" id="q5">
-      <span class="question-type">True / False</span>
-      <h3>5. Blood pressure is highest in the veins and lowest in the arteries.</h3>
-      <div class="options">
-        <label><input type="radio" name="q5" value="true"> True</label>
-        <label><input type="radio" name="q5" value="false"> False</label>
+  <!-- ========================================================= -->
+  <!-- MODULE 5: Ethical Approval & Governance                    -->
+  <!-- ========================================================= -->
+  <div class="module-header" id="module-5">
+    <span class="module-label">Module 5</span>
+    <h2>Ethical Approval &amp; Governance</h2>
+  </div>
+
+  <div class="card">
+    <span class="section-number">5.1</span>
+    <h3>Ethical Foundations</h3>
+    <p>Core principles derived from the <strong>Declaration of Helsinki</strong>, developed by the World Medical Association:</p>
+    <ul>
+      <li><strong>Autonomy</strong> — Respect for participants' right to make informed decisions</li>
+      <li><strong>Beneficence</strong> — Research should aim to do good</li>
+      <li><strong>Non-maleficence</strong> — Minimise harm and risk to participants</li>
+      <li><strong>Justice</strong> — Fair distribution of research benefits and burdens</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="section-number">5.2</span>
+    <h3>Ethics Committees / IRB</h3>
+    <p>Ethics committees (or Institutional Review Boards) are responsible for:</p>
+    <ul>
+      <li><strong>Risk-benefit analysis</strong> — Weighing potential harm against expected benefits</li>
+      <li><strong>Consent process review</strong> — Ensuring participants give truly informed consent</li>
+      <li><strong>Confidentiality safeguards</strong> — Protecting participant data and identity</li>
+      <li><strong>Data protection compliance</strong> — Ensuring adherence to GDPR and institutional policies</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="section-number">5.3</span>
+    <h3>Postgraduate Ethical Challenges</h3>
+    <p>Common ethical challenges faced by postgraduate researchers:</p>
+    <ul>
+      <li><strong>Researching your own students</strong> — Dual roles create power imbalances</li>
+      <li><strong>Vulnerable populations</strong> — Additional protections and sensitivity required</li>
+      <li><strong>Power imbalances</strong> — Between researcher and participants</li>
+      <li><strong>AI usage in research</strong> — Transparency about AI-assisted analysis or writing</li>
+      <li><strong>GDPR compliance</strong> — Data storage, processing, and participant rights</li>
+    </ul>
+  </div>
+
+  <!-- Case Study 5 -->
+  <div class="case-study" id="cs5">
+    <div class="case-study-header" onclick="toggleCase('cs5')">
+      <h3>Case Study 5: Dual Role Dilemma</h3>
+      <span class="case-study-toggle">&#9660;</span>
+    </div>
+    <div class="case-study-body">
+      <div class="case-study-body-inner">
+        <p><strong>Scenario:</strong> A lecturer interviews their own students about academic anxiety as part of their postgraduate research project.</p>
+        <div class="prompt-box">
+          <strong>Interactive Questions</strong>
+          <ol>
+            <li>What ethical risks exist in this scenario?</li>
+            <li>How could coercion occur, even unintentionally?</li>
+            <li>What safeguards would you implement to mitigate these risks?</li>
+          </ol>
+          <textarea class="reflection-area" placeholder="Write your response here..."></textarea>
+        </div>
       </div>
-      <div class="feedback" id="fb-q5"></div>
     </div>
+  </div>
 
-    <!-- Q6: Fill-in-the-blank -->
-    <div class="question-block" data-answer="aorta" id="q6">
-      <span class="question-type">Fill in the Blank</span>
-      <h3>6. The __________ is the largest artery in the human body, originating from the left ventricle.</h3>
-      <input type="text" class="text-answer" id="input-q6" placeholder="Type your answer…" autocomplete="off">
-      <div class="feedback" id="fb-q6"></div>
-    </div>
+  <!-- ========================================================= -->
+  <!-- CAPSTONE PROJECT                                           -->
+  <!-- ========================================================= -->
+  <div class="module-header" id="capstone" style="background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);">
+    <span class="module-label">Capstone</span>
+    <h2>Integrated Research Design Exercise</h2>
+  </div>
 
-    <button class="btn btn-primary btn-center" id="submit-btn">Submit Answers</button>
-  </section>
+  <div class="capstone-card">
+    <h3>Design a Complete Research Study</h3>
+    <p>Design a study examining:</p>
+    <p><strong style="color: #fff; font-size: 1.1rem;">Mindfulness interventions and burnout among junior doctors</strong></p>
+    <p>Your design should include:</p>
+    <ul>
+      <li>A focused research question (using PICO or SPIDER)</li>
+      <li>A literature review search strategy</li>
+      <li>A justified methodology and study design</li>
+      <li>A statistical analysis plan</li>
+      <li>Ethical considerations and governance requirements</li>
+    </ul>
+  </div>
 
-  <!-- ===== Results Section ===== -->
-  <section id="results-section">
-    <div class="results-card">
-      <div class="score-circle" id="score-circle">0/6</div>
-      <h2 id="results-heading">Your Results</h2>
-      <p id="results-message"></p>
-    </div>
-    <button class="btn btn-primary btn-center" id="retry-btn">Retry Quiz</button>
-  </section>
+  <div class="card">
+    <h3>Your Research Design</h3>
+    <p>Use the space below to draft your integrated research design. Draw on everything covered in Modules 1&ndash;5.</p>
+    <textarea class="reflection-area" style="min-height: 200px;" placeholder="Draft your complete research design here..."></textarea>
+  </div>
+
+  <!-- Back to top -->
+  <a href="#" class="btn btn-primary btn-center" style="text-align: center; max-width: 200px;">Back to Top</a>
+
 </main>
 
 <script>
-  const TOTAL = 6;
-  const correctLabels = {
-    q1: "Arteries",
-    q2: "Tunica media",
-    q3: "Atherosclerosis",
-    q4: "True",
-    q5: "False — blood pressure is highest in arteries",
-    q6: "Aorta"
-  };
+  // Toggle case study expandable sections
+  function toggleCase(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+  }
 
-  const quizSection = document.getElementById("quiz-section");
-  const resultsSection = document.getElementById("results-section");
-
-  // ---- Start Quiz ----
-  document.getElementById("start-quiz-btn").addEventListener("click", () => {
-    quizSection.classList.add("visible");
-    quizSection.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-
-  // ---- Submit ----
-  document.getElementById("submit-btn").addEventListener("click", () => {
-    let score = 0;
-
-    for (let i = 1; i <= TOTAL; i++) {
-      const block = document.getElementById("q" + i);
-      const expected = block.dataset.answer.toLowerCase().trim();
-      let userAnswer = "";
-
-      // Radio or text?
-      const radios = block.querySelectorAll('input[type="radio"]');
-      if (radios.length) {
-        const checked = block.querySelector('input[type="radio"]:checked');
-        userAnswer = checked ? checked.value.toLowerCase().trim() : "";
-      } else {
-        const textInput = block.querySelector(".text-answer");
-        userAnswer = textInput ? textInput.value.toLowerCase().trim() : "";
+  // Smooth scrolling for nav links
+  document.querySelectorAll('.module-nav a, a[href="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        const target = href === '#' ? document.body : document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
-
-      const fb = document.getElementById("fb-q" + i);
-      const isCorrect = userAnswer === expected;
-
-      if (isCorrect) {
-        score++;
-        block.classList.add("correct");
-        block.classList.remove("incorrect");
-        fb.textContent = "Correct!";
-        fb.className = "feedback show correct";
-      } else {
-        block.classList.add("incorrect");
-        block.classList.remove("correct");
-        fb.innerHTML = "Incorrect — the answer is: <strong>" + correctLabels["q" + i] + "</strong>";
-        fb.className = "feedback show incorrect";
-      }
-    }
-
-    // Show results
-    const circle = document.getElementById("score-circle");
-    circle.textContent = score + "/" + TOTAL;
-    circle.className = "score-circle " + (score >= 5 ? "good" : score >= 3 ? "ok" : "bad");
-
-    const msg = document.getElementById("results-message");
-    if (score === TOTAL) {
-      msg.textContent = "Perfect score! You have a strong grasp of vascular science fundamentals.";
-    } else if (score >= 4) {
-      msg.textContent = "Great job! Review the questions you missed and try again.";
-    } else {
-      msg.textContent = "Keep studying — re-read the material above and give it another go.";
-    }
-
-    resultsSection.classList.add("visible");
-    resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-
-  // ---- Retry ----
-  document.getElementById("retry-btn").addEventListener("click", () => {
-    // Reset radios and text inputs
-    quizSection.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-    quizSection.querySelectorAll(".text-answer").forEach(t => t.value = "");
-
-    // Clear feedback and border colours
-    for (let i = 1; i <= TOTAL; i++) {
-      const block = document.getElementById("q" + i);
-      block.classList.remove("correct", "incorrect");
-      const fb = document.getElementById("fb-q" + i);
-      fb.className = "feedback";
-      fb.textContent = "";
-    }
-
-    resultsSection.classList.remove("visible");
-    quizSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   });
 </script>
 </body>
