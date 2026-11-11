@@ -2525,11 +2525,11 @@
 
     <div class="module-header">
       <span class="module-label">Assessment</span>
-      <h2>Knowledge Check &mdash; 80% Pass Mark</h2>
+      <h2>Knowledge Check</h2>
     </div>
 
     <div class="card" style="text-align:center; border-left: 4px solid #2b3a67;">
-      <p>This assessment covers all nine modules. Answer all <strong>20</strong> questions. You need <strong>16 out of 20 (80%)</strong> to pass.</p>
+      <p>This assessment covers all nine modules. Answer all <strong>20</strong> questions.</p>
       <p style="font-size: 0.9rem; color: #666;">You can retake the assessment as many times as you need.</p>
       <div class="quiz-status" id="quiz-status">Answered: <strong><span id="answered-count">0</span> of 20</strong></div>
     </div>
@@ -2995,8 +2995,6 @@
 
   // ---- Quiz Logic ----
   const TOTAL = 20;
-  const PASS_PERCENT = 80;
-  const PASS_THRESHOLD = Math.ceil(TOTAL * PASS_PERCENT / 100); // 16 of 20
 
   const correctLabels = {
     q1:  "Research — findings intended to be generalisable, and potentially involving randomisation. Audit and service evaluation are local and never randomise.",
@@ -3113,26 +3111,17 @@
     }
 
     const percent = Math.round((score / TOTAL) * 100);
-    const passed = score >= PASS_THRESHOLD;
 
     const circle = document.getElementById("score-circle");
     circle.innerHTML = '<span class="score-pct">' + percent + '%</span>' +
                        '<span class="score-raw">' + score + '/' + TOTAL + '</span>';
-    circle.className = "score-circle " + (passed ? "good" : percent >= 50 ? "ok" : "bad");
+    circle.className = "score-circle " + (percent >= 80 ? "good" : percent >= 50 ? "ok" : "bad");
 
-    document.getElementById("results-heading").textContent = passed ? "Passed" : "Not Yet Passed";
+    document.getElementById("results-heading").textContent = "Your Results";
 
     const msg = document.getElementById("results-message");
-    if (passed) {
-      msg.textContent = "Congratulations — you scored " + score + " out of " + TOTAL + " (" + percent +
-        "%), meeting the " + PASS_PERCENT + "% pass mark for this assessment.";
-    } else {
-      const needed = PASS_THRESHOLD - score;
-      msg.textContent = "You scored " + score + " out of " + TOTAL + " (" + percent + "%). You need " +
-        PASS_THRESHOLD + " out of " + TOTAL + " (" + PASS_PERCENT + "%) to pass — " + needed +
-        " more correct answer" + (needed === 1 ? "" : "s") +
-        ". Review the feedback below each question, revisit those modules, and try again.";
-    }
+    msg.textContent = "You scored " + score + " out of " + TOTAL + " (" + percent + "%)." +
+      (score < TOTAL ? " Review the feedback below each question and revisit those modules." : "");
 
     // Per-module breakdown
     const byModule = {};
